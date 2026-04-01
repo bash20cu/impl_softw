@@ -2,34 +2,28 @@
 
 Proyecto del curso `Implementacion y Mantenimiento de Software`.
 
-## Idea general
+ClinicaPlus es un monolito SSR construido con `Next.js`, `TypeScript` y `PostgreSQL`. La aplicacion centraliza la gestion de pacientes, doctores, citas, expedientes y reportes para una clinica pequena.
 
-ClinicaPlus sera una aplicacion web para la gestion de una clinica pequena. El sistema permitira:
+## Stack
 
-- iniciar sesion con validaciones por rol
-- administrar pacientes, doctores y especialidades
-- registrar citas medicas
-- consultar expedientes clinicos
-- generar reportes administrativos
-
-## Stack propuesto
-
-- `Next.js` con `TypeScript`
-- `PostgreSQL`
+- `Next.js 16` con App Router
+- `TypeScript`
+- `PostgreSQL 16`
+- `Docker Compose` para base de datos local
 - `Vercel` para despliegue
 - `Git + GitHub` para control de versiones
 
-## Roles del equipo
+## Integrantes y responsabilidades
 
 - `Bri`: login y pagina principal
 - `Miguel`: base de datos con minimo 10 tablas relacionadas
-- `Gabo`: 2 reportes con datos de la aplicacion
-- `Migue`: paginas para consultar informacion desde la base de datos, documentacion y coordinacion inicial del repositorio
+- `Gabo`: 2 reportes del sistema
+- `Migue`: paginas que consumen la base de datos, documentacion y coordinacion tecnica inicial
 
-## Modulos principales
+## Modulos del sistema
 
 - autenticacion
-- dashboard principal
+- dashboard
 - pacientes
 - doctores
 - especialidades
@@ -39,18 +33,24 @@ ClinicaPlus sera una aplicacion web para la gestion de una clinica pequena. El s
 - facturacion
 - reportes
 
-## Estructura inicial de documentacion
+## Estructura del repositorio
+
+- [app](D:\GitHub\impl_softw\app): rutas SSR del monolito
+- [docs](D:\GitHub\impl_softw\docs): documentacion funcional y tecnica
+- [db](D:\GitHub\impl_softw\db): esquema SQL e inicializacion local
+- [docker-compose.yml](D:\GitHub\impl_softw\docker-compose.yml): contenedor local de PostgreSQL
+
+## Puesta en marcha local
+
+1. Copiar `.env.example` a `.env.local`.
+2. Levantar PostgreSQL con `docker compose up -d`.
+3. Instalar dependencias con `npm install`.
+4. Ejecutar `npm run dev`.
+
+## Documentacion inicial
 
 - [docs/propuesta-sistema-clinica.md](D:\GitHub\impl_softw\docs\propuesta-sistema-clinica.md)
 - [docs/division-del-proyecto.md](D:\GitHub\impl_softw\docs\division-del-proyecto.md)
 - [docs/roadmap-inicial.md](D:\GitHub\impl_softw\docs\roadmap-inicial.md)
-
-## Siguiente arranque tecnico recomendado
-
-1. Crear la app con `create-next-app`.
-2. Configurar `PostgreSQL`.
-3. Definir el esquema inicial de base de datos.
-4. Construir autenticacion y dashboard base.
-5. Desarrollar los modulos y reportes.
-6. Desplegar en Vercel.
-
+- [docs/arquitectura-monolito-ssr.md](D:\GitHub\impl_softw\docs\arquitectura-monolito-ssr.md)
+- [docs/diseno-base-de-datos.md](D:\GitHub\impl_softw\docs\diseno-base-de-datos.md)
