@@ -1,96 +1,156 @@
+import Link from "next/link";
+import {
+  ArrowRight,
+  CalendarCheck2,
+  CircleAlert,
+  LockKeyhole,
+  ShieldCheck,
+  UserRoundCog,
+} from "lucide-react";
+
+import { SiteHeader } from "@/components/site-header";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+
+const accessCards = [
+  {
+    icon: UserRoundCog,
+    title: "Administrador",
+    description: "Gestion de usuarios, catalogos, configuracion y supervision general.",
+  },
+  {
+    icon: CalendarCheck2,
+    title: "Recepcionista",
+    description: "Agenda diaria, registro de pacientes y control de pagos.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Doctor",
+    description: "Consulta de expedientes, atencion clinica y seguimiento medico.",
+  },
+];
+
 export default function LoginPage() {
   return (
-    <main className="app-shell px-6 py-8 md:px-10 md:py-10">
-      <div className="mx-auto grid min-h-[calc(100vh-4rem)] w-full max-w-6xl gap-8 lg:grid-cols-[1fr_440px]">
-        <section className="flex flex-col justify-between rounded-[32px] border border-[var(--line)] bg-[linear-gradient(135deg,rgba(15,118,110,0.95),rgba(17,33,31,0.92))] p-8 text-white shadow-[0_24px_60px_rgba(17,33,31,0.22)] md:p-10">
-          <div className="space-y-6">
-            <span className="eyebrow border-white/20 bg-white/10 text-white">
-              Acceso seguro para clinica
-            </span>
-            <div className="space-y-4">
-              <h1 className="section-title max-w-xl font-semibold">
-                Ingresa al panel central de ClinicaPlus.
+    <main className="app-shell pb-10">
+      <SiteHeader current="login" />
+
+      <section className="px-4 pb-8 pt-8 md:px-8 lg:px-10">
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+          <section className="overflow-hidden rounded-[2rem] border border-white/60 bg-[linear-gradient(180deg,#173a37_0%,#0f766e_100%)] p-6 text-white shadow-[0_24px_70px_rgba(17,33,31,0.18)] md:p-8">
+            <Badge className="rounded-full border-white/15 bg-white/10 px-3 py-1 text-white" variant="outline">
+              Acceso central del sistema
+            </Badge>
+            <div className="mt-6 max-w-2xl space-y-4">
+              <h1 className="text-balance text-[clamp(2.4rem,5vw,4.6rem)] font-semibold leading-[0.95] tracking-tight">
+                Un login sobrio transmite mas confianza que una pantalla cargada.
               </h1>
-              <p className="max-w-lg text-lg leading-8 text-white/76">
-                Esta pantalla servira como base para el trabajo de Bri: login
-                con validaciones, manejo de errores y acceso por roles.
+              <p className="text-lg leading-8 text-white/78">
+                Esta vista ya marca el tono de producto: clara, calmada y con jerarquia.
+                Bri puede seguir desde aqui para agregar validaciones reales y flujos de sesion.
               </p>
             </div>
-          </div>
 
-          <div className="grid gap-4 md:grid-cols-3">
-            {["Administrador", "Recepcionista", "Doctor"].map((role) => (
-              <div
-                className="rounded-2xl border border-white/14 bg-white/10 p-4"
-                key={role}
-              >
-                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/72">
-                  Rol
+            <Separator className="my-8 bg-white/15" />
+
+            <div className="grid gap-4">
+              {accessCards.map((card) => {
+                const Icon = card.icon;
+
+                return (
+                  <article
+                    className="rounded-[1.5rem] border border-white/12 bg-white/8 p-4 backdrop-blur-sm"
+                    key={card.title}
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="mt-1 flex size-11 items-center justify-center rounded-2xl bg-white/12">
+                        <Icon className="size-5" />
+                      </div>
+                      <div>
+                        <h2 className="text-lg font-semibold">{card.title}</h2>
+                        <p className="mt-2 text-sm leading-6 text-white/74">
+                          {card.description}
+                        </p>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className="rounded-[2rem] border border-border/70 bg-white/90 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.08)] md:p-8">
+            <div className="space-y-6">
+              <div className="space-y-3">
+                <Badge variant="secondary">Login base con shadcn/ui</Badge>
+                <h2 className="text-3xl font-semibold tracking-tight">
+                  Bienvenido al panel de ClinicaPlus
+                </h2>
+                <p className="text-sm leading-6 text-muted-foreground">
+                  La siguiente mejora natural es conectar este formulario con la tabla
+                  `usuarios`, validar credenciales y redirigir segun el rol.
                 </p>
-                <p className="mt-2 text-lg font-semibold">{role}</p>
               </div>
-            ))}
-          </div>
-        </section>
 
-        <section className="card flex items-center p-6 md:p-8">
-          <div className="w-full space-y-6">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--muted)]">
-                Inicio de sesion
-              </p>
-              <h2 className="mt-3 text-3xl font-semibold">Bienvenido de vuelta</h2>
-              <p className="mt-3 text-sm leading-6 muted-copy">
-                Maqueta inicial del formulario. En la siguiente iteracion aqui
-                entra la validacion real contra usuarios del sistema.
-              </p>
+              <form className="space-y-5">
+                <div className="space-y-2">
+                  <Label htmlFor="email">Correo institucional</Label>
+                  <Input
+                    className="h-11 rounded-xl bg-white"
+                    id="email"
+                    name="email"
+                    placeholder="recepcion@clinicaplus.com"
+                    type="email"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="password">Contrasena</Label>
+                  <Input
+                    className="h-11 rounded-xl bg-white"
+                    id="password"
+                    name="password"
+                    placeholder="Ingresa tu contrasena"
+                    type="password"
+                  />
+                </div>
+
+                <div className="rounded-[1.25rem] border border-amber-200 bg-amber-50 p-4">
+                  <div className="flex items-start gap-3 text-amber-900">
+                    <CircleAlert className="mt-0.5 size-4 shrink-0" />
+                    <p className="text-sm leading-6">
+                      Maqueta inicial: aun no hay autenticacion real ni manejo de errores.
+                      Esta pantalla ya esta lista para que Bri agregue validaciones.
+                    </p>
+                  </div>
+                </div>
+
+                <Button className="h-11 w-full rounded-xl text-sm" type="submit">
+                  <LockKeyhole className="size-4" />
+                  Ingresar al sistema
+                </Button>
+              </form>
+
+              <Separator />
+
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-sm text-muted-foreground">
+                  Acceso de prueba para administracion clinica.
+                </p>
+                <Button asChild className="rounded-full" variant="outline">
+                  <Link href="/dashboard">
+                    Ver dashboard inicial
+                    <ArrowRight className="size-4" />
+                  </Link>
+                </Button>
+              </div>
             </div>
-
-            <form className="space-y-4">
-              <div>
-                <label className="label" htmlFor="email">
-                  Correo institucional
-                </label>
-                <input
-                  className="field"
-                  id="email"
-                  name="email"
-                  placeholder="recepcion@clinicaplus.com"
-                  type="email"
-                />
-              </div>
-
-              <div>
-                <label className="label" htmlFor="password">
-                  Contrasena
-                </label>
-                <input
-                  className="field"
-                  id="password"
-                  name="password"
-                  placeholder="Ingresa tu contrasena"
-                  type="password"
-                />
-              </div>
-
-              <div>
-                <label className="label" htmlFor="role">
-                  Rol
-                </label>
-                <select className="field" defaultValue="recepcionista" id="role">
-                  <option value="admin">Administrador</option>
-                  <option value="recepcionista">Recepcionista</option>
-                  <option value="doctor">Doctor</option>
-                </select>
-              </div>
-
-              <button className="submit-button" type="submit">
-                Ingresar al sistema
-              </button>
-            </form>
-          </div>
-        </section>
-      </div>
+          </section>
+        </div>
+      </section>
     </main>
   );
 }
