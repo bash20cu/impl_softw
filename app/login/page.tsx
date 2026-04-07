@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   ArrowRight,
@@ -8,6 +10,7 @@ import {
   UserRoundCog,
 } from "lucide-react";
 
+import { useLogin } from "@/lib/login/login";
 import { SiteHeader } from "@/components/site-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -34,6 +37,8 @@ const accessCards = [
 ];
 
 export default function LoginPage() {
+  const { error, isLoading, handleSubmit } = useLogin();
+
   return (
     <main className="app-shell pb-10">
       <SiteHeader current="login" />
@@ -46,11 +51,11 @@ export default function LoginPage() {
             </Badge>
             <div className="mt-6 max-w-2xl space-y-4">
               <h1 className="text-balance text-[clamp(2.4rem,5vw,4.6rem)] font-semibold leading-[0.95] tracking-tight">
-                Un login sobrio transmite mas confianza que una pantalla cargada.
+                Tu plataforma integral para una gestión clínica eficiente, segura y centralizada.
               </h1>
               <p className="text-lg leading-8 text-white/78">
-                Esta vista ya marca el tono de producto: clara, calmada y con jerarquia.
-                Bri puede seguir desde aqui para agregar validaciones reales y flujos de sesion.
+                Accede a tu cuenta para gestionar expedientes, coordinar la agenda médica y administrar la operación diaria. 
+                Una plataforma diseñada para facilitar el trabajo de todo el equipo de salud.
               </p>
             </div>
 
@@ -90,12 +95,12 @@ export default function LoginPage() {
                   Bienvenido al panel de ClinicaPlus
                 </h2>
                 <p className="text-sm leading-6 text-muted-foreground">
-                  La siguiente mejora natural es conectar este formulario con la tabla
-                  `usuarios`, validar credenciales y redirigir segun el rol.
+                  Ingresa tus credenciales institucionales para acceder 
+                  al dashboard y gestionar las operaciones de la clínica.
                 </p>
               </div>
 
-              <form className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="space-y-2">
                   <Label htmlFor="email">Correo institucional</Label>
                   <Input
@@ -118,7 +123,7 @@ export default function LoginPage() {
                   />
                 </div>
 
-                <div className="rounded-[1.25rem] border border-amber-200 bg-amber-50 p-4">
+                {/* <div className="rounded-[1.25rem] border border-amber-200 bg-amber-50 p-4">
                   <div className="flex items-start gap-3 text-amber-900">
                     <CircleAlert className="mt-0.5 size-4 shrink-0" />
                     <p className="text-sm leading-6">
@@ -126,10 +131,19 @@ export default function LoginPage() {
                       Esta pantalla ya esta lista para que Bri agregue validaciones.
                     </p>
                   </div>
-                </div>
+                </div>  */}
 
-                <Button className="h-11 w-full rounded-xl text-sm" type="submit">
-                  <LockKeyhole className="size-4" />
+                {error && (
+                  <div className="rounded-[1.25rem] border border-red-200 bg-red-50 p-4 text-red-900">
+                    <div className="flex items-start gap-3">
+                      <CircleAlert className="mt-0.5 size-4 shrink-0" />
+                      <p className="text-sm leading-6">{error}</p>
+                    </div>
+                  </div>
+                )}
+
+                <Button className="h-11 w-full rounded-xl text-sm" type="submit" disabled={isLoading}>
+                  <LockKeyhole className="mr-2 size-4" />
                   Ingresar al sistema
                 </Button>
               </form>
@@ -138,7 +152,7 @@ export default function LoginPage() {
 
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-sm text-muted-foreground">
-                  Acceso de prueba para administracion clinica.
+                  Acceso para administracion clinica.
                 </p>
                 <Button asChild className="rounded-full" variant="outline">
                   <Link href="/dashboard">

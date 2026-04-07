@@ -4,6 +4,7 @@ import {
   CreditCard,
   FileSpreadsheet,
   HeartPulse,
+  LogOut,
   Stethoscope,
   UserSquare2,
 } from "lucide-react";
@@ -12,7 +13,8 @@ import { SiteHeader } from "@/components/site-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { healthcheckDatabase } from "@/lib/db";
+import { getDatabaseStatus } from "@/lib/db";
+import { getValidSession, logoutAction } from "@/lib/login/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -43,14 +45,8 @@ const workAreas = [
 ];
 
 export default async function DashboardPage() {
-  let databaseStatus = "Conexion pendiente";
-
-  try {
-    const result = await healthcheckDatabase();
-    databaseStatus = `PostgreSQL activo: ${new Date(result.current_time).toLocaleString("es-CR")}`;
-  } catch {
-    databaseStatus = "No se pudo consultar la base de datos todavia";
-  }
+  const session = await getValidSession();
+  const databaseStatus = await getDatabaseStatus();
 
   return (
     <main className="app-shell pb-10">
@@ -60,7 +56,11 @@ export default async function DashboardPage() {
         <div className="mx-auto max-w-6xl space-y-6">
           <section className="grid gap-6 rounded-[2rem] border border-border/70 bg-white/85 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.08)] lg:grid-cols-[1.1fr_0.9fr] md:p-8">
             <div className="space-y-5">
-              <Badge variant="secondary">Dashboard SSR del monolito</Badge>
+              <div className="flex flex-wrap gap-2 items-center">
+                <Badge variant="secondary">Dashboard SSR del monolito</Badge>
+                <Badge variant="outline" className="capitalize">Rol: {session.role}</Badge>
+                <Badge variant="outline">{session.email}</Badge>
+              </div>
               <div className="space-y-4">
                 <h1 className="text-balance text-4xl font-semibold tracking-tight md:text-5xl">
                   La superficie operativa ya tiene mejor jerarquia y mejor lectura.
@@ -71,11 +71,17 @@ export default async function DashboardPage() {
                   claridad del producto.
                 </p>
               </div>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 <Button className="rounded-full px-5">Crear cita</Button>
                 <Button className="rounded-full px-5" variant="outline">
                   Registrar paciente
                 </Button>
+                <form action={logoutAction}>
+                  <Button type="submit" variant="ghost" className="rounded-full px-5 text-red-600 hover:bg-red-50 hover:text-red-700">
+                    <LogOut className="mr-2 size-4" />
+                    Cerrar sesion
+                  </Button>
+                </form>
               </div>
             </div>
 
