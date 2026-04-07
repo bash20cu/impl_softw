@@ -33,3 +33,12 @@ export async function healthcheckDatabase() {
   const result = await pool.query("select now() as current_time");
   return result.rows[0];
 }
+
+export async function getDatabaseStatus() {
+  try {
+    const result = await healthcheckDatabase();
+    return `PostgreSQL activo: ${new Date(result.current_time).toLocaleString("es-CR")}`;
+  } catch {
+    return "No se pudo consultar la base de datos todavia";
+  }
+}
