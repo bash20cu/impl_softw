@@ -5,13 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
 type SiteHeaderProps = {
-  current?: "inicio" | "login" | "dashboard";
+  current?: "inicio" | "login" | "dashboard" | "reportes";
 };
 
 const navItems: Array<{ href: string; label: string; key: SiteHeaderProps["current"] }> = [
   { href: "/", label: "Inicio", key: "inicio" },
   { href: "/login", label: "Login", key: "login" },
   { href: "/dashboard", label: "Dashboard", key: "dashboard" },
+  { href: "/reportes", label: "Reportes", key: "reportes" },
 ];
 
 export function SiteHeader({ current }: SiteHeaderProps) {
