@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, FileSearch, Phone, UserRound } from "lucide-react";
+import { ArrowRight, FileSearch, Phone, Plus, UserRound } from "lucide-react";
 
 import { requireSession } from "@/lib/auth";
 import { getPatientsList } from "@/lib/patients";
@@ -32,9 +32,17 @@ export default async function PatientsPage() {
                 </p>
               </div>
 
-              <div className="rounded-[1.4rem] border border-primary/20 bg-primary/[0.05] px-4 py-3 text-sm">
-                <p className="font-medium text-primary">{patients.length} paciente(s) encontrados</p>
-                <p className="mt-1 text-muted-foreground">Vista viva desde la base de datos.</p>
+              <div className="flex flex-col gap-3 md:items-end">
+                <div className="rounded-[1.4rem] border border-primary/20 bg-primary/[0.05] px-4 py-3 text-sm">
+                  <p className="font-medium text-primary">{patients.length} paciente(s) encontrados</p>
+                  <p className="mt-1 text-muted-foreground">Vista viva desde la base de datos.</p>
+                </div>
+                <Button asChild className="rounded-full px-5">
+                  <Link href="/pacientes/nuevo">
+                    <Plus className="size-4" />
+                    Nuevo paciente
+                  </Link>
+                </Button>
               </div>
             </div>
           </section>

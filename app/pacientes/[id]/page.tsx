@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { ArrowLeft, CreditCard, FileText, Phone, UserRound } from "lucide-react";
+import { ArrowLeft, CreditCard, FileText, Pencil, Phone, Trash2, UserRound } from "lucide-react";
 import { notFound } from "next/navigation";
 
 import { requireSession } from "@/lib/auth";
+import { deactivatePatientAction } from "@/lib/patient-actions";
 import { getPatientDetail } from "@/lib/patients";
 import { SiteHeader } from "@/components/site-header";
 import { Badge } from "@/components/ui/badge";
@@ -30,12 +31,26 @@ export default async function PatientDetailPage({ params }: PatientDetailPagePro
       <section className="px-4 pb-8 pt-8 md:px-8 lg:px-10">
         <div className="mx-auto max-w-6xl space-y-6">
           <div className="flex items-center justify-between">
-            <Button asChild className="rounded-full px-5" variant="outline">
-              <Link href="/pacientes">
-                <ArrowLeft className="size-4" />
-                Volver a pacientes
-              </Link>
-            </Button>
+            <div className="flex flex-wrap gap-3">
+              <Button asChild className="rounded-full px-5" variant="outline">
+                <Link href="/pacientes">
+                  <ArrowLeft className="size-4" />
+                  Volver a pacientes
+                </Link>
+              </Button>
+              <Button asChild className="rounded-full px-5" variant="outline">
+                <Link href={`/pacientes/${patient.id}/editar`}>
+                  <Pencil className="size-4" />
+                  Editar
+                </Link>
+              </Button>
+              <form action={deactivatePatientAction.bind(null, patient.id)}>
+                <Button className="rounded-full px-5" type="submit" variant="outline">
+                  <Trash2 className="size-4" />
+                  Desactivar
+                </Button>
+              </form>
+            </div>
           </div>
 
           <section className="rounded-[2rem] border border-border/70 bg-white/88 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.08)] md:p-8">
@@ -55,6 +70,7 @@ export default async function PatientDetailPage({ params }: PatientDetailPagePro
                   </p>
                   <p>Correo: {patient.email}</p>
                   <p>Contacto de emergencia: {patient.contactoEmergencia}</p>
+                  <p>Telefono de emergencia: {patient.contactoEmergenciaTelefono}</p>
                   <p>Direccion: {patient.direccion}</p>
                 </div>
               </div>

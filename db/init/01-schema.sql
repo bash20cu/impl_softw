@@ -72,6 +72,7 @@ create table if not exists pacientes (
   direccion text,
   contacto_emergencia_nombre varchar(160),
   contacto_emergencia_telefono varchar(30),
+  activo boolean not null default true,
   created_at timestamptz not null default now(),
   constraint chk_pacientes_genero
     check (

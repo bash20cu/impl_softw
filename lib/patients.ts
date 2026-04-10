@@ -10,11 +10,16 @@ export type PatientListItem = {
   email: string;
   contactoEmergencia: string;
   fechaNacimiento: string;
+  activo: boolean;
 };
 
 export type PatientDetail = PatientListItem & {
+  nombre: string;
+  apellido1: string;
+  apellido2: string;
   direccion: string;
   genero: string;
+  contactoEmergenciaTelefono: string;
   citasRegistradas: number;
   expedientesRegistrados: number;
   facturasRegistradas: number;
@@ -53,8 +58,10 @@ export async function getPatientsList() {
         telefono,
         email,
         contacto_emergencia_nombre,
-        fecha_nacimiento
+        fecha_nacimiento,
+        activo
       from pacientes
+      where activo = true
       order by numero_expediente asc
     `,
   );
@@ -69,6 +76,7 @@ export async function getPatientsList() {
       ? String(row.contacto_emergencia_nombre)
       : "-",
     fechaNacimiento: formatDateValue(row.fecha_nacimiento),
+    activo: Boolean(row.activo),
   }));
 }
 
@@ -85,9 +93,11 @@ export async function getPatientDetail(patientId: string) {
         p.telefono,
         p.email,
         p.contacto_emergencia_nombre,
+        p.contacto_emergencia_telefono,
         p.fecha_nacimiento,
         p.direccion,
         p.genero,
+        p.activo,
         count(distinct c.id) as citas_registradas,
         count(distinct e.id) as expedientes_registrados,
         count(distinct f.id) as facturas_registradas
@@ -105,6 +115,7 @@ export async function getPatientDetail(patientId: string) {
         p.telefono,
         p.email,
         p.contacto_emergencia_nombre,
+        p.contacto_emergencia_telefono,
         p.fecha_nacimiento,
         p.direccion,
         p.genero
@@ -122,15 +133,22 @@ export async function getPatientDetail(patientId: string) {
   return {
     id: String(row.id),
     numeroExpediente: String(row.numero_expediente),
+    nombre: String(row.nombre),
+    apellido1: String(row.apellido_1),
+    apellido2: row.apellido_2 ? String(row.apellido_2) : "",
     nombreCompleto: buildFullName(row),
     telefono: row.telefono ? String(row.telefono) : "-",
     email: row.email ? String(row.email) : "-",
     contactoEmergencia: row.contacto_emergencia_nombre
       ? String(row.contacto_emergencia_nombre)
       : "-",
+    contactoEmergenciaTelefono: row.contacto_emergencia_telefono
+      ? String(row.contacto_emergencia_telefono)
+      : "-",
     fechaNacimiento: formatDateValue(row.fecha_nacimiento),
     direccion: row.direccion ? String(row.direccion) : "-",
     genero: row.genero ? String(row.genero) : "-",
+    activo: Boolean(row.activo),
     citasRegistradas: Number(row.citas_registradas ?? 0),
     expedientesRegistrados: Number(row.expedientes_registrados ?? 0),
     facturasRegistradas: Number(row.facturas_registradas ?? 0),
