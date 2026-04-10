@@ -25,7 +25,7 @@ Ya existe:
 
 Todavia no existe:
 
-- CRUD de facturas y pagos
+- modulo de pagos separado, si luego quieren una vista general administrativa
 
 ## CRUDs prioritarios
 
@@ -124,7 +124,7 @@ Requerido:
 
 Estado:
 
-- no hay UI CRUD
+- `CRUD` funcional listo con pago simulado
 
 ## CRUDs secundarios
 
@@ -171,29 +171,27 @@ Con eso el sistema ya se ve completo y coherente para la exposicion.
 
 ### Fase 1
 
-- construir `Facturas` con create, list y vista de detalle
+- consolidar `Pagos` con una vista general administrativa
 
 ### Fase 2
 
-- construir `Pagos` ligados a facturas
+- reforzar modulos secundarios como `Especialidades`, `Consultorios` y `Medicamentos`
 
 ### Fase 3
 
-- reforzar modulos secundarios como `Especialidades`, `Consultorios` y `Medicamentos`
+- mejorar validaciones y mensajes de exito del flujo administrativo
 
 ## Lo que falta por agregar hoy o proximamente
 
-- modulo `app/facturas`
-- modulo `app/pagos`
 - acciones de servidor para formularios
 - navegacion entre modulos desde dashboard
 
 ## Siguiente paso recomendado
 
-Comenzar por `Facturas` y completar:
+Comenzar por `Pagos` o por un modulo secundario y completar:
 
-- formulario de crear factura
-- listado general y por paciente
-- detalle con estado, monto y cita asociada
+- vista general de pagos registrados
+- filtros por paciente, fecha y metodo
+- o bien CRUD secundario de `Medicamentos`/`Consultorios`
 
-Ese es el modulo que mejor prepara el cierre administrativo y conecta directo con el reporte de pagos.
+Con los CRUD principales ya listos, el siguiente avance mas rentable es reforzar la administracion o cerrar modulos de apoyo.

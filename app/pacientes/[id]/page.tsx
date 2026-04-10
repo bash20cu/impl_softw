@@ -45,6 +45,12 @@ export default async function PatientDetailPage({ params }: PatientDetailPagePro
                 </Link>
               </Button>
               <Button asChild className="rounded-full px-5" variant="outline">
+                <Link href={`/facturas?pacienteId=${patient.id}`}>
+                  <CreditCard className="size-4" />
+                  Ver facturas
+                </Link>
+              </Button>
+              <Button asChild className="rounded-full px-5" variant="outline">
                 <Link href={`/pacientes/${patient.id}/editar`}>
                   <Pencil className="size-4" />
                   Editar

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, CalendarDays, FileText, Pencil, Stethoscope, Trash2 } from "lucide-react";
+import { ArrowLeft, CalendarDays, CreditCard, FileText, Pencil, Stethoscope, Trash2 } from "lucide-react";
 import { notFound } from "next/navigation";
 
 import { cancelAppointmentAction } from "@/lib/appointment-actions";
@@ -41,6 +41,12 @@ export default async function AppointmentDetailPage({ params }: AppointmentDetai
               <Link href={`/expedientes/nuevo?citaId=${appointment.id}`}>
                 <FileText className="size-4" />
                 Crear expediente
+              </Link>
+            </Button>
+            <Button asChild className="rounded-full px-5" variant="outline">
+              <Link href={`/facturas/nuevo?citaId=${appointment.id}`}>
+                <CreditCard className="size-4" />
+                Crear factura
               </Link>
             </Button>
             <Button asChild className="rounded-full px-5" variant="outline">

@@ -15,7 +15,8 @@ type SiteHeaderProps = {
     | "pacientes"
     | "citas"
     | "doctores"
-    | "expedientes";
+    | "expedientes"
+    | "facturas";
 };
 
 const navItems: Array<{ href: string; label: string; key: SiteHeaderProps["current"] }> = [
@@ -26,6 +27,7 @@ const navItems: Array<{ href: string; label: string; key: SiteHeaderProps["curre
   { href: "/doctores", label: "Doctores", key: "doctores" },
   { href: "/citas", label: "Citas", key: "citas" },
   { href: "/expedientes", label: "Expedientes", key: "expedientes" },
+  { href: "/facturas", label: "Facturas", key: "facturas" },
   { href: "/reportes", label: "Reportes", key: "reportes" },
 ];
 
