@@ -135,12 +135,20 @@ Estado:
 - update
 - delete logico
 
+Estado:
+
+- `CRUD` completo listo
+
 ### Medicamentos
 
 - create
 - read
 - update
 - delete logico
+
+Estado:
+
+- `CRUD` completo listo
 
 ### Recetas
 
@@ -149,12 +157,20 @@ Estado:
 - update
 - delete
 
+Estado:
+
+- `CRUD` completo listo
+
 ### Consultorios
 
 - create
 - read
 - update
 - cambio de estado
+
+Estado:
+
+- `CRUD` completo listo
 
 ## Propuesta minima para cumplir bien
 

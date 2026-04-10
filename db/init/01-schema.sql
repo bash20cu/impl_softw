@@ -28,6 +28,7 @@ create table if not exists especialidades (
   id uuid primary key default gen_random_uuid(),
   nombre varchar(120) not null unique,
   descripcion text,
+  activo boolean not null default true,
   created_at timestamptz not null default now()
 );
 
@@ -140,6 +141,7 @@ create table if not exists medicamentos (
   nombre varchar(140) not null unique,
   presentacion varchar(80),
   descripcion text,
+  activo boolean not null default true,
   created_at timestamptz not null default now()
 );
 
