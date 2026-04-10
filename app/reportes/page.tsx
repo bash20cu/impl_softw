@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { BarChart3, Database, SlidersHorizontal } from "lucide-react";
 
+import { requireSession } from "@/lib/auth";
 import { ReportsWorkspace } from "@/components/reports/reports-workspace";
 import { SiteHeader } from "@/components/site-header";
 import { Badge } from "@/components/ui/badge";
+import { getReportData } from "@/lib/reporting-data";
+import { normalizeReportId, resolveFiltersForReport } from "@/lib/reporting";
 
 export const metadata: Metadata = {
   title: "Reportes | ClinicaPlus",
@@ -28,7 +31,21 @@ const highlightCards = [
   },
 ];
 
-export default function ReportsPage() {
+type ReportsPageProps = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
+
+export default async function ReportsPage({ searchParams }: ReportsPageProps) {
+  await requireSession();
+  const resolvedSearchParams = await searchParams;
+  const selectedReport = normalizeReportId(
+    Array.isArray(resolvedSearchParams.report)
+      ? resolvedSearchParams.report[0]
+      : resolvedSearchParams.report,
+  );
+  const filters = resolveFiltersForReport(selectedReport, resolvedSearchParams);
+  const { rows } = await getReportData(selectedReport, filters);
+
   return (
     <main className="app-shell pb-10">
       <SiteHeader current="reportes" />
@@ -73,7 +90,11 @@ export default function ReportsPage() {
           </section>
 
           <div className="w-full">
-            <ReportsWorkspace />
+            <ReportsWorkspace
+              initialFilters={filters}
+              initialReportId={selectedReport}
+              rows={rows}
+            />
           </div>
         </div>
       </section>

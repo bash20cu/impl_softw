@@ -7,7 +7,9 @@ import {
   Stethoscope,
   UserSquare2,
 } from "lucide-react";
+import Link from "next/link";
 
+import { requireSession } from "@/lib/auth";
 import { SiteHeader } from "@/components/site-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -43,6 +45,7 @@ const workAreas = [
 ];
 
 export default async function DashboardPage() {
+  const session = await requireSession();
   let databaseStatus = "Conexion pendiente";
 
   try {
@@ -70,11 +73,14 @@ export default async function DashboardPage() {
                   accion. Por eso esta pantalla baja el tono de marketing y sube la
                   claridad del producto.
                 </p>
+                <p className="text-sm font-medium text-primary">
+                  Sesion activa: {session.name} ({session.role})
+                </p>
               </div>
               <div className="flex flex-wrap gap-3">
                 <Button className="rounded-full px-5">Crear cita</Button>
-                <Button className="rounded-full px-5" variant="outline">
-                  Registrar paciente
+                <Button asChild className="rounded-full px-5" variant="outline">
+                  <Link href="/pacientes">Ver pacientes</Link>
                 </Button>
               </div>
             </div>

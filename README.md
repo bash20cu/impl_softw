@@ -47,6 +47,20 @@ ClinicaPlus es un monolito SSR construido con `Next.js`, `TypeScript` y `Postgre
 3. Instalar dependencias con `npm install`.
 4. Ejecutar `npm run dev`.
 
+## Acceso demo
+
+El login actual ya funciona con los usuarios sembrados en la base de datos local.
+
+- `admin@clinicaplus.com` / `hash_admin_demo`
+- `recepcion@clinicaplus.com` / `hash_recepcion_demo`
+- `carlos.vargas@clinicaplus.com` / `hash_doctor_1_demo`
+- `sofia.jimenez@clinicaplus.com` / `hash_doctor_2_demo`
+
+Nota:
+
+- Estas credenciales son solo para desarrollo y demo del proyecto.
+- La sesion usa una cookie simple y luego redirige al `dashboard`.
+
 ## Documentacion inicial
 
 - [docs/propuesta-sistema-clinica.md](D:\GitHub\impl_softw\docs\propuesta-sistema-clinica.md)

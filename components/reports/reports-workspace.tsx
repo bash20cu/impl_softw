@@ -1,16 +1,15 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import {
-  CalendarRange,
-  FileSpreadsheet,
-} from "lucide-react";
+import { useMemo, useState, useTransition } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { CalendarRange } from "lucide-react";
 
 import {
-  filterPreviewRows,
-  getInitialFilters,
+  getReportDefinition,
   reportDefinitions,
+  type ReportFilterValues,
   type ReportId,
+  type ReportRow,
 } from "@/lib/reporting";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -19,21 +18,38 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 
-export function ReportsWorkspace() {
-  const [selectedReport, setSelectedReport] = useState<ReportId>(reportDefinitions[0].id);
-  const [filtersByReport, setFiltersByReport] = useState(getInitialFilters);
+type ReportsWorkspaceProps = {
+  initialReportId: ReportId;
+  initialFilters: ReportFilterValues;
+  rows: ReportRow[];
+};
+
+export function ReportsWorkspace({
+  initialReportId,
+  initialFilters,
+  rows,
+}: ReportsWorkspaceProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [isPending, startTransition] = useTransition();
+  const [selectedReport, setSelectedReport] = useState<ReportId>(initialReportId);
+  const [filtersByReport, setFiltersByReport] = useState<Record<ReportId, ReportFilterValues>>(() =>
+    Object.fromEntries(
+      reportDefinitions.map((report) => [
+        report.id,
+        report.id === initialReportId
+          ? { ...initialFilters }
+          : Object.fromEntries(report.filters.map((filter) => [filter.key, filter.defaultValue])),
+      ]),
+    ) as Record<ReportId, ReportFilterValues>,
+  );
 
   const report = useMemo(
-    () => reportDefinitions.find((item) => item.id === selectedReport) ?? reportDefinitions[0],
+    () => getReportDefinition(selectedReport),
     [selectedReport],
   );
 
   const currentFilters = filtersByReport[selectedReport];
-
-  const previewRows = useMemo(
-    () => filterPreviewRows(selectedReport, currentFilters, report.previewRows),
-    [currentFilters, report.previewRows, selectedReport, report],
-  );
 
   const handleFilterChange = (key: string, value: string) => {
     setFiltersByReport((current) => ({
@@ -45,13 +61,41 @@ export function ReportsWorkspace() {
     }));
   };
 
-  const resetCurrentFilters = () => {
-    const initial = getInitialFilters();
+  const navigateWithFilters = (reportId: ReportId, filters: ReportFilterValues) => {
+    const searchParams = new URLSearchParams();
+    searchParams.set("report", reportId);
+
+    for (const [key, value] of Object.entries(filters)) {
+      if (value) {
+        searchParams.set(key, value);
+      }
+    }
+
+    startTransition(() => {
+      router.push(`${pathname}?${searchParams.toString()}`);
+    });
+  };
+
+  const handleGenerateReport = () => {
+    navigateWithFilters(selectedReport, currentFilters);
+  };
+
+  const handleResetFilters = () => {
+    const resetFilters = Object.fromEntries(
+      report.filters.map((filter) => [filter.key, filter.defaultValue]),
+    ) as ReportFilterValues;
 
     setFiltersByReport((current) => ({
       ...current,
-      [selectedReport]: initial[selectedReport],
+      [selectedReport]: resetFilters,
     }));
+
+    navigateWithFilters(selectedReport, resetFilters);
+  };
+
+  const handleReportChange = (reportId: ReportId) => {
+    setSelectedReport(reportId);
+    navigateWithFilters(reportId, filtersByReport[reportId]);
   };
 
   return (
@@ -60,15 +104,33 @@ export function ReportsWorkspace() {
         <div className="grid gap-6 xl:grid-cols-[minmax(22rem,0.82fr)_minmax(0,1.18fr)]">
           <article className="rounded-[2rem] border border-border/70 bg-white/88 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.06)]">
             <div className="flex items-center justify-between gap-3">
-              <div>
+              <div className="space-y-3">
                 <Badge variant="secondary">Filtros</Badge>
+                <div className="flex flex-wrap gap-2">
+                  {reportDefinitions.map((item) => (
+                    <Button
+                      className="rounded-full"
+                      key={item.id}
+                      onClick={() => handleReportChange(item.id)}
+                      type="button"
+                      variant={item.id === selectedReport ? "default" : "outline"}
+                    >
+                      {item.title}
+                    </Button>
+                  ))}
+                </div>
               </div>
               <CalendarRange className="size-5 text-primary" />
             </div>
 
             <Separator className="my-6" />
 
-            <div className="space-y-5">
+            <div className="space-y-2">
+              <h3 className="text-lg font-semibold">{report.title}</h3>
+              <p className="text-sm leading-6 text-muted-foreground">{report.description}</p>
+            </div>
+
+            <div className="mt-6 space-y-5">
               {report.filters.map((filter) => (
                 <div className="space-y-2" key={filter.key}>
                   <Label htmlFor={`${report.id}-${filter.key}`}>{filter.label}</Label>
@@ -103,18 +165,31 @@ export function ReportsWorkspace() {
             </div>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <Button className="rounded-full px-5">Generar vista previa</Button>
-              <Button className="rounded-full px-5" onClick={resetCurrentFilters} type="button" variant="outline">
+              <Button
+                className="rounded-full px-5"
+                disabled={isPending}
+                onClick={handleGenerateReport}
+                type="button"
+              >
+                {isPending ? "Consultando..." : "Generar reporte"}
+              </Button>
+              <Button
+                className="rounded-full px-5"
+                disabled={isPending}
+                onClick={handleResetFilters}
+                type="button"
+                variant="outline"
+              >
                 Restablecer filtros
               </Button>
             </div>
 
             <div className="mt-6 rounded-[1.4rem] border border-border/70 bg-muted/50 p-4">
               <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-                Payload preparado
+                Payload actual
               </p>
               <pre className="mt-3 overflow-x-auto text-xs leading-6 text-foreground">
-{JSON.stringify(currentFilters, null, 2)}
+{JSON.stringify({ report: selectedReport, ...currentFilters }, null, 2)}
               </pre>
             </div>
           </article>
@@ -127,14 +202,13 @@ export function ReportsWorkspace() {
                   Tabla de salida y resumen visual
                 </h3>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  La estructura de columnas ya refleja los reportes existentes. Cambiar a datos reales
-                  consistira en reemplazar la fuente de filas.
+                  Ahora la tabla se alimenta desde PostgreSQL real usando los filtros activos.
                 </p>
               </div>
 
               <div className="rounded-[1.3rem] border border-primary/20 bg-primary/[0.05] px-4 py-3 text-sm">
-                <p className="font-medium text-primary">{previewRows.length} fila(s) visibles</p>
-                <p className="mt-1 text-muted-foreground">Vista previa basada en datos semilla.</p>
+                <p className="font-medium text-primary">{rows.length} fila(s) visibles</p>
+                <p className="mt-1 text-muted-foreground">Consulta viva contra la base de datos.</p>
               </div>
             </div>
 
@@ -147,7 +221,11 @@ export function ReportsWorkspace() {
                         <th
                           className={cn(
                             "border-b border-border/70 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground",
-                            column.align === "right" ? "text-right" : column.align === "center" ? "text-center" : "text-left",
+                            column.align === "right"
+                              ? "text-right"
+                              : column.align === "center"
+                                ? "text-center"
+                                : "text-left",
                           )}
                           key={column.key}
                           scope="col"
@@ -158,9 +236,9 @@ export function ReportsWorkspace() {
                     </tr>
                   </thead>
                   <tbody>
-                    {previewRows.length > 0 ? (
-                      previewRows.map((row, index) => (
-                        <tr className="bg-white" key={`${report.id}-${index}`}> 
+                    {rows.length > 0 ? (
+                      rows.map((row, index) => (
+                        <tr className="bg-white" key={`${report.id}-${index}`}>
                           {report.columns.map((column) => (
                             <td
                               className={cn(
@@ -180,7 +258,10 @@ export function ReportsWorkspace() {
                       ))
                     ) : (
                       <tr>
-                        <td className="px-4 py-10 text-center text-sm leading-6 text-muted-foreground" colSpan={report.columns.length}>
+                        <td
+                          className="px-4 py-10 text-center text-sm leading-6 text-muted-foreground"
+                          colSpan={report.columns.length}
+                        >
                           {report.emptyMessage}
                         </td>
                       </tr>
