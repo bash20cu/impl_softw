@@ -1,21 +1,27 @@
 import Link from "next/link";
 
+import { logoutAction } from "@/lib/auth-actions";
+import { getCurrentSession } from "@/lib/auth";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
 type SiteHeaderProps = {
-  current?: "inicio" | "login" | "dashboard" | "reportes";
+  current?: "inicio" | "login" | "dashboard" | "reportes" | "pacientes" | "citas";
 };
 
 const navItems: Array<{ href: string; label: string; key: SiteHeaderProps["current"] }> = [
   { href: "/", label: "Inicio", key: "inicio" },
   { href: "/login", label: "Login", key: "login" },
   { href: "/dashboard", label: "Dashboard", key: "dashboard" },
+  { href: "/pacientes", label: "Pacientes", key: "pacientes" },
+  { href: "/citas", label: "Citas", key: "citas" },
   { href: "/reportes", label: "Reportes", key: "reportes" },
 ];
 
-export function SiteHeader({ current }: SiteHeaderProps) {
+export async function SiteHeader({ current }: SiteHeaderProps) {
+  const session = await getCurrentSession();
+
   return (
     <header className="sticky top-0 z-30">
       <div className="mx-auto mt-4 flex w-[min(1120px,calc(100%-2rem))] items-center justify-between rounded-full border border-white/60 bg-white/85 px-3 py-2 shadow-[0_12px_40px_rgba(17,33,31,0.08)] backdrop-blur">
@@ -54,6 +60,21 @@ export function SiteHeader({ current }: SiteHeaderProps) {
               </Button>
             );
           })}
+
+          {session ? (
+            <>
+              <Separator className="mx-1 h-6" orientation="vertical" />
+              <div className="px-3 text-right">
+                <p className="text-sm font-semibold leading-none">{session.name}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{session.role}</p>
+              </div>
+              <form action={logoutAction}>
+                <Button className="rounded-full" size="sm" type="submit" variant="outline">
+                  Cerrar sesion
+                </Button>
+              </form>
+            </>
+          ) : null}
         </nav>
       </div>
     </header>

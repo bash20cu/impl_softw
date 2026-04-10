@@ -1,18 +1,13 @@
-import Link from "next/link";
 import {
-  ArrowRight,
   CalendarCheck2,
-  CircleAlert,
-  LockKeyhole,
   ShieldCheck,
   UserRoundCog,
 } from "lucide-react";
 
+import { redirectIfAuthenticated } from "@/lib/auth";
+import { LoginForm } from "@/components/auth/login-form";
 import { SiteHeader } from "@/components/site-header";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 
 const accessCards = [
@@ -33,7 +28,9 @@ const accessCards = [
   },
 ];
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  await redirectIfAuthenticated();
+
   return (
     <main className="app-shell pb-10">
       <SiteHeader current="login" />
@@ -83,71 +80,7 @@ export default function LoginPage() {
           </section>
 
           <section className="rounded-[2rem] border border-border/70 bg-white/90 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.08)] md:p-8">
-            <div className="space-y-6">
-              <div className="space-y-3">
-                <Badge variant="secondary">Login base con shadcn/ui</Badge>
-                <h2 className="text-3xl font-semibold tracking-tight">
-                  Bienvenido al panel de ClinicaPlus
-                </h2>
-                <p className="text-sm leading-6 text-muted-foreground">
-                  La siguiente mejora natural es conectar este formulario con la tabla
-                  `usuarios`, validar credenciales y redirigir segun el rol.
-                </p>
-              </div>
-
-              <form className="space-y-5">
-                <div className="space-y-2">
-                  <Label htmlFor="email">Correo institucional</Label>
-                  <Input
-                    className="h-11 rounded-xl bg-white"
-                    id="email"
-                    name="email"
-                    placeholder="recepcion@clinicaplus.com"
-                    type="email"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="password">Contrasena</Label>
-                  <Input
-                    className="h-11 rounded-xl bg-white"
-                    id="password"
-                    name="password"
-                    placeholder="Ingresa tu contrasena"
-                    type="password"
-                  />
-                </div>
-
-                <div className="rounded-[1.25rem] border border-amber-200 bg-amber-50 p-4">
-                  <div className="flex items-start gap-3 text-amber-900">
-                    <CircleAlert className="mt-0.5 size-4 shrink-0" />
-                    <p className="text-sm leading-6">
-                      Maqueta inicial: aun no hay autenticacion real ni manejo de errores.
-                      Esta pantalla ya esta lista para que Bri agregue validaciones.
-                    </p>
-                  </div>
-                </div>
-
-                <Button className="h-11 w-full rounded-xl text-sm" type="submit">
-                  <LockKeyhole className="size-4" />
-                  Ingresar al sistema
-                </Button>
-              </form>
-
-              <Separator />
-
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-sm text-muted-foreground">
-                  Acceso de prueba para administracion clinica.
-                </p>
-                <Button asChild className="rounded-full" variant="outline">
-                  <Link href="/dashboard">
-                    Ver dashboard inicial
-                    <ArrowRight className="size-4" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
+            <LoginForm />
           </section>
         </div>
       </section>

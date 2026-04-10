@@ -31,6 +31,8 @@ export type ReportDefinition = {
   emptyMessage: string;
 };
 
+export type ReportFilterValues = Record<string, string>;
+
 const defaultDateStart = "2026-04-01";
 const defaultDateEnd = "2026-04-30";
 
@@ -92,43 +94,9 @@ export const reportDefinitions: ReportDefinition[] = [
       { key: "especialidad", label: "Especialidad" },
       { key: "consultorio", label: "Consultorio" },
     ],
-    previewRows: [
-      {
-        fecha: "2026-04-06",
-        hora_inicio: "08:00",
-        hora_fin: "08:30",
-        estado: "confirmada",
-        paciente: "Mariana Salas Arias",
-        doctor: "Carlos Vargas Lopez",
-        especialidad: "Medicina General",
-        consultorio: "Consultorio A",
-        codigo_doctor: "COL-1001",
-      },
-      {
-        fecha: "2026-04-06",
-        hora_inicio: "09:00",
-        hora_fin: "09:45",
-        estado: "programada",
-        paciente: "Jose Quesada Mora",
-        doctor: "Sofia Jimenez Mora",
-        especialidad: "Cardiologia",
-        consultorio: "Consultorio B",
-        codigo_doctor: "COL-1002",
-      },
-      {
-        fecha: "2026-04-07",
-        hora_inicio: "10:00",
-        hora_fin: "10:30",
-        estado: "atendida",
-        paciente: "Valeria Nunez Campos",
-        doctor: "Carlos Vargas Lopez",
-        especialidad: "Medicina General",
-        consultorio: "Consultorio A",
-        codigo_doctor: "COL-1001",
-      },
-    ],
+    previewRows: [],
     emptyMessage:
-      "No hay filas en la vista previa con los filtros actuales.",
+      "No hay filas para los filtros seleccionados.",
   },
   {
     id: "pacientes-y-pagos",
@@ -163,37 +131,9 @@ export const reportDefinitions: ReportDefinition[] = [
       { key: "primera_atencion_periodo", label: "Primera atencion" },
       { key: "ultima_atencion_periodo", label: "Ultima atencion" },
     ],
-    previewRows: [
-      {
-        numero_expediente: "EXP-0001",
-        paciente: "Mariana Salas Arias",
-        consultas_atendidas: 1,
-        facturas_emitidas: 1,
-        total_pagado: "₡25.000,00",
-        primera_atencion_periodo: "2026-04-06",
-        ultima_atencion_periodo: "2026-04-06",
-      },
-      {
-        numero_expediente: "EXP-0003",
-        paciente: "Valeria Nunez Campos",
-        consultas_atendidas: 1,
-        facturas_emitidas: 1,
-        total_pagado: "₡10.000,00",
-        primera_atencion_periodo: "2026-04-07",
-        ultima_atencion_periodo: "2026-04-07",
-      },
-      {
-        numero_expediente: "EXP-0002",
-        paciente: "Jose Quesada Mora",
-        consultas_atendidas: 0,
-        facturas_emitidas: 1,
-        total_pagado: "₡0,00",
-        primera_atencion_periodo: "-",
-        ultima_atencion_periodo: "-",
-      },
-    ],
+    previewRows: [],
     emptyMessage:
-      "No hay resumenes visibles para este periodo en la vista previa. La capa real podra devolver filas desde PostgreSQL usando estos mismos parametros.",
+      "No hay resumenes para el periodo seleccionado.",
   },
 ];
 
@@ -203,58 +143,41 @@ export function getInitialFilters() {
       report.id,
       Object.fromEntries(report.filters.map((filter) => [filter.key, filter.defaultValue])),
     ]),
-  ) as Record<ReportId, Record<string, string>>;
+  ) as Record<ReportId, ReportFilterValues>;
 }
 
 export function getReportDefinition(reportId: ReportId) {
   return reportDefinitions.find((report) => report.id === reportId) ?? reportDefinitions[0];
 }
 
-export function filterPreviewRows(
+export function isReportId(value: string): value is ReportId {
+  return reportDefinitions.some((report) => report.id === value);
+}
+
+export function normalizeReportId(value?: string): ReportId {
+  if (value && isReportId(value)) {
+    return value;
+  }
+
+  return reportDefinitions[0].id;
+}
+
+export function resolveFiltersForReport(
   reportId: ReportId,
-  filters: Record<string, string>,
-  rows: ReportRow[],
+  source: URLSearchParams | Record<string, string | string[] | undefined>,
 ) {
-  const startDate = filters.fecha_inicio;
-  const endDate = filters.fecha_fin;
+  const report = getReportDefinition(reportId);
 
-  return rows.filter((row) => {
-    const rowDate = typeof row.fecha === "string"
-      ? row.fecha
-      : typeof row.primera_atencion_periodo === "string"
-        ? row.primera_atencion_periodo
-        : "";
+  return Object.fromEntries(
+    report.filters.map((filter) => {
+      const rawValue =
+        source instanceof URLSearchParams
+          ? source.get(filter.key)
+          : source[filter.key];
 
-    if (startDate && rowDate && rowDate !== "-" && rowDate < startDate) {
-      return false;
-    }
+      const value = Array.isArray(rawValue) ? rawValue[0] : rawValue;
 
-    if (endDate && rowDate && rowDate !== "-" && rowDate > endDate) {
-      return false;
-    }
-
-    if (reportId === "citas-por-doctor") {
-      const doctorCode = filters.codigo_doctor.trim().toLowerCase();
-
-      if (doctorCode) {
-        const rowDoctorCode = String(row.codigo_doctor ?? "").toLowerCase();
-
-        if (!rowDoctorCode.includes(doctorCode)) {
-          return false;
-        }
-      }
-
-      const estado = filters.estado?.trim().toLowerCase();
-
-      if (estado) {
-        const rowEstado = String(row.estado ?? "").toLowerCase();
-
-        if (rowEstado !== estado) {
-          return false;
-        }
-      }
-    }
-
-    return true;
-  });
+      return [filter.key, typeof value === "string" && value.length > 0 ? value : filter.defaultValue];
+    }),
+  ) as ReportFilterValues;
 }
