@@ -18,15 +18,16 @@ Ya existe:
 - login funcional basico
 - dashboard SSR
 - reportes conectados a PostgreSQL
-- listado de pacientes
-- detalle de paciente
+- CRUD completo de pacientes
+- CRUD completo de citas
+- CRUD completo de doctores
 - base de datos y seed demo
 
 Todavia no existe:
 
-- formularios reales de crear, editar y eliminar registros
-- modulos CRUD completos de negocio
 - flujo de citas y expedientes operable desde la UI
+- CRUD de expedientes
+- CRUD de facturas y pagos
 
 ## CRUDs prioritarios
 
@@ -47,8 +48,7 @@ Requerido:
 
 Estado:
 
-- `Read` parcial listo
-- faltan `Create`, `Update`, `Delete`
+- `CRUD` completo listo
 
 Archivos relacionados:
 
@@ -73,8 +73,7 @@ Requerido:
 
 Estado:
 
-- no hay UI CRUD todavia
-- solo existe la tabla y los datos demo
+- `CRUD` completo listo
 
 ### 3. Doctores
 
@@ -92,7 +91,7 @@ Requerido:
 
 Estado:
 
-- no hay UI CRUD
+- `CRUD` completo listo
 
 ### 4. Expedientes
 
@@ -174,37 +173,34 @@ Con eso el sistema ya se ve completo y coherente para la exposicion.
 
 ### Fase 1
 
-- completar `Pacientes` con create, update y delete logico
+- completar `Expedientes`
 
 ### Fase 2
 
-- construir `Citas` con create, list y update de estado
+- construir `Facturas` con create, list y vista de detalle
 
 ### Fase 3
 
-- construir `Expedientes` ligados a paciente y cita
+- construir `Pagos` ligados a facturas
 
 ### Fase 4
 
-- construir `Facturas` y `Pagos`
+- reforzar modulos secundarios como `Especialidades`, `Consultorios` y `Medicamentos`
 
 ## Lo que falta por agregar hoy o proximamente
 
-- modulo `app/citas`
-- modulo `app/doctores`
 - modulo `app/expedientes`
 - modulo `app/facturas`
+- modulo `app/pagos`
 - acciones de servidor para formularios
-- validaciones de formularios
-- mensajes de exito y error
 - navegacion entre modulos desde dashboard
 
 ## Siguiente paso recomendado
 
-Comenzar por `Pacientes` y completar:
+Comenzar por `Expedientes` y completar:
 
-- formulario de crear paciente
-- formulario de editar paciente
-- accion de eliminar o desactivar
+- formulario de crear expediente desde una cita o desde un paciente
+- listado de expedientes por paciente
+- detalle de expediente con diagnostico y tratamiento
 
-Ese es el modulo mas rapido de convertir en un CRUD completo porque ya tiene listado y detalle.
+Ese es el modulo que mejor conecta la parte clinica con las citas y con los reportes del proyecto.

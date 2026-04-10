@@ -84,6 +84,9 @@ export default async function DashboardPage() {
                 <Button asChild className="rounded-full px-5" variant="outline">
                   <Link href="/pacientes">Ver pacientes</Link>
                 </Button>
+                <Button asChild className="rounded-full px-5" variant="outline">
+                  <Link href="/doctores">Ver doctores</Link>
+                </Button>
               </div>
             </div>
 

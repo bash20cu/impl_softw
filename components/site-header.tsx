@@ -7,7 +7,14 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 
 type SiteHeaderProps = {
-  current?: "inicio" | "login" | "dashboard" | "reportes" | "pacientes" | "citas";
+  current?:
+    | "inicio"
+    | "login"
+    | "dashboard"
+    | "reportes"
+    | "pacientes"
+    | "citas"
+    | "doctores";
 };
 
 const navItems: Array<{ href: string; label: string; key: SiteHeaderProps["current"] }> = [
@@ -15,6 +22,7 @@ const navItems: Array<{ href: string; label: string; key: SiteHeaderProps["curre
   { href: "/login", label: "Login", key: "login" },
   { href: "/dashboard", label: "Dashboard", key: "dashboard" },
   { href: "/pacientes", label: "Pacientes", key: "pacientes" },
+  { href: "/doctores", label: "Doctores", key: "doctores" },
   { href: "/citas", label: "Citas", key: "citas" },
   { href: "/reportes", label: "Reportes", key: "reportes" },
 ];
