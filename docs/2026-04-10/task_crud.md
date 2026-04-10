@@ -25,8 +25,6 @@ Ya existe:
 
 Todavia no existe:
 
-- flujo de citas y expedientes operable desde la UI
-- CRUD de expedientes
 - CRUD de facturas y pagos
 
 ## CRUDs prioritarios
@@ -108,7 +106,7 @@ Requerido:
 
 Estado:
 
-- no hay UI CRUD
+- `CRUD` completo listo
 
 ### 5. Facturas y pagos
 
@@ -173,23 +171,18 @@ Con eso el sistema ya se ve completo y coherente para la exposicion.
 
 ### Fase 1
 
-- completar `Expedientes`
+- construir `Facturas` con create, list y vista de detalle
 
 ### Fase 2
 
-- construir `Facturas` con create, list y vista de detalle
-
-### Fase 3
-
 - construir `Pagos` ligados a facturas
 
-### Fase 4
+### Fase 3
 
 - reforzar modulos secundarios como `Especialidades`, `Consultorios` y `Medicamentos`
 
 ## Lo que falta por agregar hoy o proximamente
 
-- modulo `app/expedientes`
 - modulo `app/facturas`
 - modulo `app/pagos`
 - acciones de servidor para formularios
@@ -197,10 +190,10 @@ Con eso el sistema ya se ve completo y coherente para la exposicion.
 
 ## Siguiente paso recomendado
 
-Comenzar por `Expedientes` y completar:
+Comenzar por `Facturas` y completar:
 
-- formulario de crear expediente desde una cita o desde un paciente
-- listado de expedientes por paciente
-- detalle de expediente con diagnostico y tratamiento
+- formulario de crear factura
+- listado general y por paciente
+- detalle con estado, monto y cita asociada
 
-Ese es el modulo que mejor conecta la parte clinica con las citas y con los reportes del proyecto.
+Ese es el modulo que mejor prepara el cierre administrativo y conecta directo con el reporte de pagos.
