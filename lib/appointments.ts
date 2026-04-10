@@ -175,6 +175,7 @@ export async function getAppointmentFormOptions() {
         select d.id, d.codigo_colegiado, concat(u.nombre, ' ', u.apellido_1, coalesce(' ' || u.apellido_2, '')) as doctor
         from doctores d
         join usuarios u on u.id = d.usuario_id
+        where u.activo = true
         order by d.codigo_colegiado asc
       `,
     ),

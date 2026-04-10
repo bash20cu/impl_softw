@@ -18,15 +18,14 @@ Ya existe:
 - login funcional basico
 - dashboard SSR
 - reportes conectados a PostgreSQL
-- listado de pacientes
-- detalle de paciente
+- CRUD completo de pacientes
+- CRUD completo de citas
+- CRUD completo de doctores
 - base de datos y seed demo
 
 Todavia no existe:
 
-- formularios reales de crear, editar y eliminar registros
-- modulos CRUD completos de negocio
-- flujo de citas y expedientes operable desde la UI
+- modulo de pagos separado, si luego quieren una vista general administrativa
 
 ## CRUDs prioritarios
 
@@ -47,8 +46,7 @@ Requerido:
 
 Estado:
 
-- `Read` parcial listo
-- faltan `Create`, `Update`, `Delete`
+- `CRUD` completo listo
 
 Archivos relacionados:
 
@@ -73,8 +71,7 @@ Requerido:
 
 Estado:
 
-- no hay UI CRUD todavia
-- solo existe la tabla y los datos demo
+- `CRUD` completo listo
 
 ### 3. Doctores
 
@@ -92,7 +89,7 @@ Requerido:
 
 Estado:
 
-- no hay UI CRUD
+- `CRUD` completo listo
 
 ### 4. Expedientes
 
@@ -109,7 +106,7 @@ Requerido:
 
 Estado:
 
-- no hay UI CRUD
+- `CRUD` completo listo
 
 ### 5. Facturas y pagos
 
@@ -127,7 +124,7 @@ Requerido:
 
 Estado:
 
-- no hay UI CRUD
+- `CRUD` funcional listo con pago simulado
 
 ## CRUDs secundarios
 
@@ -138,12 +135,20 @@ Estado:
 - update
 - delete logico
 
+Estado:
+
+- `CRUD` completo listo
+
 ### Medicamentos
 
 - create
 - read
 - update
 - delete logico
+
+Estado:
+
+- `CRUD` completo listo
 
 ### Recetas
 
@@ -152,12 +157,20 @@ Estado:
 - update
 - delete
 
+Estado:
+
+- `CRUD` completo listo
+
 ### Consultorios
 
 - create
 - read
 - update
 - cambio de estado
+
+Estado:
+
+- `CRUD` completo listo
 
 ## Propuesta minima para cumplir bien
 
@@ -174,37 +187,27 @@ Con eso el sistema ya se ve completo y coherente para la exposicion.
 
 ### Fase 1
 
-- completar `Pacientes` con create, update y delete logico
+- consolidar `Pagos` con una vista general administrativa
 
 ### Fase 2
 
-- construir `Citas` con create, list y update de estado
+- reforzar modulos secundarios como `Especialidades`, `Consultorios` y `Medicamentos`
 
 ### Fase 3
 
-- construir `Expedientes` ligados a paciente y cita
-
-### Fase 4
-
-- construir `Facturas` y `Pagos`
+- mejorar validaciones y mensajes de exito del flujo administrativo
 
 ## Lo que falta por agregar hoy o proximamente
 
-- modulo `app/citas`
-- modulo `app/doctores`
-- modulo `app/expedientes`
-- modulo `app/facturas`
 - acciones de servidor para formularios
-- validaciones de formularios
-- mensajes de exito y error
 - navegacion entre modulos desde dashboard
 
 ## Siguiente paso recomendado
 
-Comenzar por `Pacientes` y completar:
+Comenzar por `Pagos` o por un modulo secundario y completar:
 
-- formulario de crear paciente
-- formulario de editar paciente
-- accion de eliminar o desactivar
+- vista general de pagos registrados
+- filtros por paciente, fecha y metodo
+- o bien CRUD secundario de `Medicamentos`/`Consultorios`
 
-Ese es el modulo mas rapido de convertir en un CRUD completo porque ya tiene listado y detalle.
+Con los CRUD principales ya listos, el siguiente avance mas rentable es reforzar la administracion o cerrar modulos de apoyo.

@@ -6,13 +6,14 @@ values
 on conflict (nombre) do update
 set descripcion = excluded.descripcion;
 
-insert into especialidades (nombre, descripcion)
+insert into especialidades (nombre, descripcion, activo)
 values
-  ('Medicina General', 'Consulta general y seguimiento primario'),
-  ('Pediatria', 'Atencion medica para ninos y adolescentes'),
-  ('Cardiologia', 'Control y seguimiento cardiovascular')
+  ('Medicina General', 'Consulta general y seguimiento primario', true),
+  ('Pediatria', 'Atencion medica para ninos y adolescentes', true),
+  ('Cardiologia', 'Control y seguimiento cardiovascular', true)
 on conflict (nombre) do update
-set descripcion = excluded.descripcion;
+set descripcion = excluded.descripcion,
+    activo = excluded.activo;
 
 insert into consultorios (nombre, ubicacion, piso, estado)
 values
@@ -81,16 +82,17 @@ set nombre = excluded.nombre,
     telefono = excluded.telefono,
     email = excluded.email;
 
-insert into medicamentos (nombre, presentacion, descripcion)
+insert into medicamentos (nombre, presentacion, descripcion, activo)
 values
-  ('Acetaminofen', 'Tabletas 500 mg', 'Analgesico y antipiretico'),
-  ('Ibuprofeno', 'Capsulas 400 mg', 'Antiinflamatorio no esteroideo'),
-  ('Losartan', 'Tabletas 50 mg', 'Tratamiento de hipertension arterial'),
-  ('Amoxicilina', 'Capsulas 500 mg', 'Antibiotico de amplio espectro'),
-  ('Salbutamol', 'Inhalador', 'Broncodilatador de accion rapida')
+  ('Acetaminofen', 'Tabletas 500 mg', 'Analgesico y antipiretico', true),
+  ('Ibuprofeno', 'Capsulas 400 mg', 'Antiinflamatorio no esteroideo', true),
+  ('Losartan', 'Tabletas 50 mg', 'Tratamiento de hipertension arterial', true),
+  ('Amoxicilina', 'Capsulas 500 mg', 'Antibiotico de amplio espectro', true),
+  ('Salbutamol', 'Inhalador', 'Broncodilatador de accion rapida', true)
 on conflict (nombre) do update
 set presentacion = excluded.presentacion,
-    descripcion = excluded.descripcion;
+    descripcion = excluded.descripcion,
+    activo = excluded.activo;
 
 insert into citas (
   paciente_id,
