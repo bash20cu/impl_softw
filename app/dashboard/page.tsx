@@ -78,7 +78,9 @@ export default async function DashboardPage() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <Button className="rounded-full px-5">Crear cita</Button>
+                <Button asChild className="rounded-full px-5">
+                  <Link href="/citas/nuevo">Crear cita</Link>
+                </Button>
                 <Button asChild className="rounded-full px-5" variant="outline">
                   <Link href="/pacientes">Ver pacientes</Link>
                 </Button>
