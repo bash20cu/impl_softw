@@ -70,7 +70,10 @@ insert into pacientes (
 values
   ('EXP-0001', 'Mariana', 'Salas', 'Arias', date '1992-05-14', 'femenino', '8888-2001', 'mariana.salas@email.com', 'San Jose, Tibas', 'Daniel Salas', '8888-9001'),
   ('EXP-0002', 'Jose', 'Quesada', 'Mora', date '1985-09-03', 'masculino', '8888-2002', 'jose.quesada@email.com', 'Heredia, Belen', 'Ana Mora', '8888-9002'),
-  ('EXP-0003', 'Valeria', 'Nunez', 'Campos', date '2001-11-21', 'femenino', '8888-2003', 'valeria.nunez@email.com', 'Alajuela, Grecia', 'Monica Campos', '8888-9003')
+  ('EXP-0003', 'Valeria', 'Nunez', 'Campos', date '2001-11-21', 'femenino', '8888-2003', 'valeria.nunez@email.com', 'Alajuela, Grecia', 'Monica Campos', '8888-9003'),
+  ('EXP-0004', 'Ricardo', 'Mora', 'Solis', date '1978-02-18', 'masculino', '8888-2004', 'ricardo.mora@email.com', 'Cartago, Tres Rios', 'Lucia Solis', '8888-9004'),
+  ('EXP-0005', 'Elena', 'Chaves', 'Pineda', date '1996-07-29', 'femenino', '8888-2005', 'elena.chaves@email.com', 'San Jose, Escazu', 'Marco Chaves', '8888-9005'),
+  ('EXP-0006', 'Tomas', 'Arce', 'Villalobos', date '2012-03-05', 'masculino', '8888-2006', 'tomas.arce@email.com', 'Heredia, Santo Domingo', 'Paola Villalobos', '8888-9006')
 on conflict (numero_expediente) do update
 set nombre = excluded.nombre,
     apellido_1 = excluded.apellido_1,
@@ -82,7 +85,9 @@ insert into medicamentos (nombre, presentacion, descripcion)
 values
   ('Acetaminofen', 'Tabletas 500 mg', 'Analgesico y antipiretico'),
   ('Ibuprofeno', 'Capsulas 400 mg', 'Antiinflamatorio no esteroideo'),
-  ('Losartan', 'Tabletas 50 mg', 'Tratamiento de hipertension arterial')
+  ('Losartan', 'Tabletas 50 mg', 'Tratamiento de hipertension arterial'),
+  ('Amoxicilina', 'Capsulas 500 mg', 'Antibiotico de amplio espectro'),
+  ('Salbutamol', 'Inhalador', 'Broncodilatador de accion rapida')
 on conflict (nombre) do update
 set presentacion = excluded.presentacion,
     descripcion = excluded.descripcion;
@@ -103,7 +108,11 @@ from (
   values
     ('EXP-0001', 'COL-1001', 'Consultorio A', date '2026-04-06', time '08:00', time '08:30', 'confirmada', 'Control general', 'Paciente estable'),
     ('EXP-0002', 'COL-1002', 'Consultorio B', date '2026-04-06', time '09:00', time '09:45', 'programada', 'Revision cardiologica', 'Traer examenes previos'),
-    ('EXP-0003', 'COL-1001', 'Consultorio A', date '2026-04-07', time '10:00', time '10:30', 'atendida', 'Dolor de garganta', 'Se realizo valoracion completa')
+    ('EXP-0003', 'COL-1001', 'Consultorio A', date '2026-04-07', time '10:00', time '10:30', 'atendida', 'Dolor de garganta', 'Se realizo valoracion completa'),
+    ('EXP-0004', 'COL-1002', 'Consultorio B', date '2026-04-08', time '11:00', time '11:45', 'atendida', 'Control de presion arterial', 'Paciente con mejoria'),
+    ('EXP-0005', 'COL-1001', 'Consultorio A', date '2026-04-08', time '13:00', time '13:30', 'confirmada', 'Migraña recurrente', 'Pendiente valoracion completa'),
+    ('EXP-0006', 'COL-1001', 'Consultorio A', date '2026-04-09', time '15:00', time '15:30', 'atendida', 'Tos persistente', 'Se sugiere seguimiento pediatrico'),
+    ('EXP-0002', 'COL-1002', 'Consultorio B', date '2026-04-10', time '08:30', time '09:15', 'confirmada', 'Electrocardiograma de control', 'Traer resultados de laboratorio')
 ) as x(expediente_numero, codigo_colegiado, consultorio_nombre, fecha, hora_inicio, hora_fin, estado, motivo, observaciones)
 join pacientes p on p.numero_expediente = x.expediente_numero
 join doctores d on d.codigo_colegiado = x.codigo_colegiado
@@ -131,7 +140,9 @@ select p.id, ci.id, d.id, x.diagnostico, x.sintomas, x.tratamiento, x.notas, x.f
 from (
   values
     ('EXP-0001', 'COL-1001', date '2026-04-06', time '08:00', 'Control general sin hallazgos graves', 'Fatiga leve', 'Hidratacion y seguimiento anual', 'Se recomienda perfil sanguineo', timestamptz '2026-04-06 08:40:00-06'),
-    ('EXP-0003', 'COL-1001', date '2026-04-07', time '10:00', 'Faringitis aguda', 'Dolor de garganta y fiebre', 'Acetaminofen e hidratacion', 'Reposo por 3 dias', timestamptz '2026-04-07 10:40:00-06')
+    ('EXP-0003', 'COL-1001', date '2026-04-07', time '10:00', 'Faringitis aguda', 'Dolor de garganta y fiebre', 'Acetaminofen e hidratacion', 'Reposo por 3 dias', timestamptz '2026-04-07 10:40:00-06'),
+    ('EXP-0004', 'COL-1002', date '2026-04-08', time '11:00', 'Hipertension controlada', 'Mareo ocasional y cefalea leve', 'Mantener losartan y control mensual', 'Reducir consumo de sodio', timestamptz '2026-04-08 11:55:00-06'),
+    ('EXP-0006', 'COL-1001', date '2026-04-09', time '15:00', 'Bronquitis leve', 'Tos seca persistente y congestion', 'Salbutamol y control en una semana', 'Vigilar fiebre nocturna', timestamptz '2026-04-09 15:40:00-06')
 ) as x(expediente_numero, codigo_colegiado, fecha, hora_inicio, diagnostico, sintomas, tratamiento, notas, fecha_registro)
 join pacientes p on p.numero_expediente = x.expediente_numero
 join doctores d on d.codigo_colegiado = x.codigo_colegiado
@@ -154,7 +165,9 @@ select ex.id, m.id, x.dosis, x.frecuencia, x.duracion, x.indicaciones
 from (
   values
     ('EXP-0003', timestamptz '2026-04-07 10:40:00-06', 'Acetaminofen', '500 mg', 'Cada 8 horas', '3 dias', 'Tomar despues de las comidas'),
-    ('EXP-0001', timestamptz '2026-04-06 08:40:00-06', 'Ibuprofeno', '400 mg', 'Cada 12 horas', '2 dias', 'Solo si presenta dolor muscular')
+    ('EXP-0001', timestamptz '2026-04-06 08:40:00-06', 'Ibuprofeno', '400 mg', 'Cada 12 horas', '2 dias', 'Solo si presenta dolor muscular'),
+    ('EXP-0004', timestamptz '2026-04-08 11:55:00-06', 'Losartan', '50 mg', 'Una vez al dia', '30 dias', 'Tomar en la manana'),
+    ('EXP-0006', timestamptz '2026-04-09 15:40:00-06', 'Salbutamol', '2 disparos', 'Cada 8 horas', '5 dias', 'Usar en caso de dificultad respiratoria')
 ) as x(expediente_numero, fecha_registro, medicamento_nombre, dosis, frecuencia, duracion, indicaciones)
 join pacientes p on p.numero_expediente = x.expediente_numero
 join expedientes ex on ex.paciente_id = p.id and ex.fecha_registro = x.fecha_registro
@@ -179,7 +192,10 @@ from (
   values
     ('EXP-0001', date '2026-04-06', time '08:00', 'FAC-0001', 25000.00, 'pagada', timestamptz '2026-04-06 09:00:00-06'),
     ('EXP-0002', date '2026-04-06', time '09:00', 'FAC-0002', 38000.00, 'pendiente', timestamptz '2026-04-06 09:50:00-06'),
-    ('EXP-0003', date '2026-04-07', time '10:00', 'FAC-0003', 22000.00, 'parcial', timestamptz '2026-04-07 11:00:00-06')
+    ('EXP-0003', date '2026-04-07', time '10:00', 'FAC-0003', 22000.00, 'parcial', timestamptz '2026-04-07 11:00:00-06'),
+    ('EXP-0004', date '2026-04-08', time '11:00', 'FAC-0004', 41000.00, 'pagada', timestamptz '2026-04-08 12:05:00-06'),
+    ('EXP-0005', date '2026-04-08', time '13:00', 'FAC-0005', 18000.00, 'pendiente', timestamptz '2026-04-08 13:40:00-06'),
+    ('EXP-0006', date '2026-04-09', time '15:00', 'FAC-0006', 27000.00, 'parcial', timestamptz '2026-04-09 16:00:00-06')
 ) as x(expediente_numero, fecha, hora_inicio, numero_factura, monto_total, estado, fecha_emision)
 join pacientes p on p.numero_expediente = x.expediente_numero
 join citas ci on ci.paciente_id = p.id and ci.fecha = x.fecha and ci.hora_inicio = x.hora_inicio
@@ -193,7 +209,9 @@ select f.id, x.metodo_pago, x.monto, x.referencia, x.fecha_pago
 from (
   values
     ('FAC-0001', 'tarjeta', 25000.00, 'POS-1001', timestamptz '2026-04-06 09:05:00-06'),
-    ('FAC-0003', 'sinpe', 10000.00, 'SINPE-2001', timestamptz '2026-04-07 11:10:00-06')
+    ('FAC-0003', 'sinpe', 10000.00, 'SINPE-2001', timestamptz '2026-04-07 11:10:00-06'),
+    ('FAC-0004', 'transferencia', 41000.00, 'TRF-3001', timestamptz '2026-04-08 12:10:00-06'),
+    ('FAC-0006', 'efectivo', 12000.00, 'CAJA-4001', timestamptz '2026-04-09 16:05:00-06')
 ) as x(numero_factura, metodo_pago, monto, referencia, fecha_pago)
 join facturas f on f.numero_factura = x.numero_factura
 where not exists (
