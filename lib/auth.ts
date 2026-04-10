@@ -5,17 +5,14 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
+import { canAccessPath } from "@/lib/access-control";
 import { findUserForAuth } from "@/lib/db";
-
-const SESSION_COOKIE_NAME = "clinicaplus_session";
-const SESSION_MAX_AGE_SECONDS = 60 * 60 * 8;
-
-type SessionPayload = {
-  userId: string;
-  email: string;
-  role: string;
-  name: string;
-};
+import {
+  type AppRole,
+  SESSION_COOKIE_NAME,
+  SESSION_MAX_AGE_SECONDS,
+  type SessionPayload,
+} from "@/lib/auth-shared";
 
 export type AuthSession = SessionPayload & {
   isAuthenticated: true;
@@ -155,6 +152,20 @@ export async function requireSession() {
   }
 
   return session;
+}
+
+export async function requireRole(allowedRoles: AppRole[]) {
+  const session = await requireSession();
+
+  if (!allowedRoles.includes(session.role as AppRole)) {
+    redirect("/dashboard");
+  }
+
+  return session;
+}
+
+export function hasAccessToPath(pathname: string, role?: string | null) {
+  return canAccessPath(pathname, role);
 }
 
 export async function redirectIfAuthenticated() {
