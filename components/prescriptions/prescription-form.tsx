@@ -16,7 +16,7 @@ function SubmitButton({ mode }: { mode: "create" | "edit" }) {
   const { pending } = useFormStatus();
 
   return (
-    <Button className="rounded-full px-6" disabled={pending} type="submit">
+    <Button className="rounded-lg px-6" disabled={pending} type="submit">
       <Save className="size-4" />
       {pending ? "Guardando..." : mode === "create" ? "Crear receta" : "Guardar cambios"}
     </Button>

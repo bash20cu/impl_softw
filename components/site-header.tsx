@@ -90,10 +90,10 @@ export async function SiteHeader({ current }: SiteHeaderProps) {
       <div className="mx-auto flex w-[min(1240px,calc(100%-2rem))] flex-col gap-4 px-2 py-3">
         <div className="flex items-center justify-between gap-4">
           <Link
-            className="group flex min-w-0 items-center gap-3 rounded-2xl border border-transparent px-3 py-2 transition-colors hover:border-white/80 hover:bg-white/70"
+            className="group flex min-w-0 items-center gap-3 rounded-lg border border-transparent px-3 py-2 transition-colors hover:border-white/80 hover:bg-white/70"
             href="/"
           >
-            <span className="flex size-10 items-center justify-center rounded-2xl bg-[linear-gradient(180deg,#0f766e,#115e59)] text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.26)]">
+            <span className="flex size-10 items-center justify-center rounded-lg bg-[linear-gradient(180deg,#0f766e,#115e59)] text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.26)]">
               CP
             </span>
             <div className="min-w-0">
@@ -116,7 +116,7 @@ export async function SiteHeader({ current }: SiteHeaderProps) {
 
             {session ? (
               <>
-                <div className="rounded-2xl border border-white/80 bg-white/78 px-4 py-2 text-right shadow-[0_10px_28px_rgba(15,23,42,0.05)]">
+                <div className="rounded-lg border border-white/80 bg-white/78 px-4 py-2 text-right shadow-[0_8px_18px_rgba(15,23,42,0.04)]">
                   <p className="text-sm font-semibold leading-none text-slate-900">
                     {session.name}
                   </p>
@@ -126,7 +126,7 @@ export async function SiteHeader({ current }: SiteHeaderProps) {
                 </div>
                 <form action={logoutAction}>
                   <Button
-                    className="rounded-2xl border-slate-200 bg-white/82 px-4 text-slate-700 shadow-none hover:bg-white"
+                    className="rounded-lg border-slate-200 bg-white/82 px-4 text-slate-700 shadow-none hover:bg-white"
                     size="sm"
                     type="submit"
                     variant="outline"
@@ -136,7 +136,7 @@ export async function SiteHeader({ current }: SiteHeaderProps) {
                 </form>
               </>
             ) : (
-              <Button asChild className="rounded-2xl px-4" size="sm">
+              <Button asChild className="rounded-lg px-4" size="sm">
                 <Link href="/login">Iniciar sesion</Link>
               </Button>
             )}
@@ -144,11 +144,11 @@ export async function SiteHeader({ current }: SiteHeaderProps) {
         </div>
 
         {session ? (
-          <nav className="hidden rounded-[1.45rem] border border-white/75 bg-white/72 p-2 shadow-[0_16px_40px_rgba(15,23,42,0.06)] md:block">
+          <nav className="hidden rounded-xl border border-white/75 bg-white/72 p-2 shadow-[0_10px_24px_rgba(15,23,42,0.045)] md:block">
             <div className={`grid gap-2 ${visibleSections.length > 2 ? "xl:grid-cols-3" : "xl:grid-cols-2"}`}>
               {visibleSections.map((section) => (
               <section
-                className="rounded-[1.15rem] border border-transparent bg-[linear-gradient(180deg,rgba(255,255,255,0.56),rgba(255,255,255,0.22))] p-2"
+                className="rounded-lg border border-transparent bg-[linear-gradient(180deg,rgba(255,255,255,0.56),rgba(255,255,255,0.22))] p-2"
                 key={section.title}
               >
                 <div className="px-2 pb-2">
@@ -165,7 +165,7 @@ export async function SiteHeader({ current }: SiteHeaderProps) {
                     return (
                       <Link
                         className={[
-                          "inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium transition-all",
+                          "inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors",
                           active
                             ? "border border-teal-200 bg-[linear-gradient(180deg,rgba(15,118,110,0.12),rgba(255,255,255,0.96))] text-slate-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.78)]"
                             : "border border-transparent text-slate-600 hover:border-slate-200 hover:bg-white hover:text-slate-900",
@@ -185,7 +185,7 @@ export async function SiteHeader({ current }: SiteHeaderProps) {
           </nav>
         ) : null}
 
-        <div className="flex items-center justify-between gap-3 rounded-[1.1rem] border border-white/75 bg-white/72 px-3 py-2 shadow-[0_10px_24px_rgba(15,23,42,0.05)] md:hidden">
+        <div className="flex items-center justify-between gap-3 rounded-lg border border-white/75 bg-white/72 px-3 py-2 shadow-[0_8px_18px_rgba(15,23,42,0.04)] md:hidden">
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold text-slate-900">
               {session ? session.name : "ClinicaPlus"}
@@ -197,12 +197,12 @@ export async function SiteHeader({ current }: SiteHeaderProps) {
 
           {session ? (
             <form action={logoutAction}>
-              <Button className="rounded-xl" size="sm" type="submit" variant="outline">
+              <Button className="rounded-lg" size="sm" type="submit" variant="outline">
                 Salir
               </Button>
             </form>
           ) : (
-            <Button asChild className="rounded-xl" size="sm">
+            <Button asChild className="rounded-lg" size="sm">
               <Link href="/login">Login</Link>
             </Button>
           )}

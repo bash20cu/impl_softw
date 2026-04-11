@@ -32,13 +32,13 @@ export default async function MedicalRecordDetailPage({
       <section className="px-4 pb-8 pt-8 md:px-8 lg:px-10">
         <div className="mx-auto max-w-6xl space-y-6">
           <div className="flex flex-wrap gap-3">
-            <Button asChild className="rounded-full px-5" variant="outline">
+            <Button asChild className="rounded-lg px-5" variant="outline">
               <Link href={`/expedientes?pacienteId=${record.pacienteId}`}>
                 <ArrowLeft className="size-4" />
                 Volver al historial
               </Link>
             </Button>
-            <Button asChild className="rounded-full px-5" variant="outline">
+            <Button asChild className="rounded-lg px-5" variant="outline">
               <Link href={`/expedientes/${record.id}/editar`}>
                 <Pencil className="size-4" />
                 Editar
@@ -46,7 +46,7 @@ export default async function MedicalRecordDetailPage({
             </Button>
           </div>
 
-          <section className="rounded-[2rem] border border-border/70 bg-white/88 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.08)] md:p-8">
+          <section className="hero-panel">
             <div className="space-y-3">
               <Badge variant="secondary">{record.numeroExpediente}</Badge>
               <h1 className="text-4xl font-semibold tracking-tight">{record.paciente}</h1>
@@ -68,22 +68,22 @@ export default async function MedicalRecordDetailPage({
           </section>
 
           <section className="grid gap-4 md:grid-cols-2">
-            <article className="rounded-[1.6rem] border border-border/70 bg-white/82 p-5 shadow-[0_12px_35px_rgba(17,33,31,0.05)]">
+            <article className="panel-card">
               <h2 className="text-lg font-semibold">Diagnostico</h2>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{record.diagnostico}</p>
             </article>
 
-            <article className="rounded-[1.6rem] border border-border/70 bg-white/82 p-5 shadow-[0_12px_35px_rgba(17,33,31,0.05)]">
+            <article className="panel-card">
               <h2 className="text-lg font-semibold">Sintomas</h2>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{record.sintomas || "-"}</p>
             </article>
 
-            <article className="rounded-[1.6rem] border border-border/70 bg-white/82 p-5 shadow-[0_12px_35px_rgba(17,33,31,0.05)]">
+            <article className="panel-card">
               <h2 className="text-lg font-semibold">Tratamiento</h2>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{record.tratamiento || "-"}</p>
             </article>
 
-            <article className="rounded-[1.6rem] border border-border/70 bg-white/82 p-5 shadow-[0_12px_35px_rgba(17,33,31,0.05)]">
+            <article className="panel-card">
               <h2 className="text-lg font-semibold">Notas</h2>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{record.notas || "-"}</p>
             </article>

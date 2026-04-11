@@ -25,7 +25,7 @@ export default async function MedicalRecordsPage({ searchParams }: MedicalRecord
 
       <section className="px-4 pb-8 pt-8 md:px-8 lg:px-10">
         <div className="mx-auto max-w-6xl space-y-6">
-          <section className="rounded-[2rem] border border-border/70 bg-white/85 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.08)] md:p-8">
+          <section className="hero-panel">
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
               <div className="space-y-3">
                 <Badge variant="secondary">Modulo de expedientes</Badge>
@@ -39,13 +39,13 @@ export default async function MedicalRecordsPage({ searchParams }: MedicalRecord
               </div>
 
               <div className="flex flex-col gap-3 md:items-end">
-                <div className="rounded-[1.4rem] border border-primary/20 bg-primary/[0.05] px-4 py-3 text-sm">
+                <div className="info-pill text-sm">
                   <p className="font-medium text-primary">{records.length} expediente(s) encontrados</p>
                   <p className="mt-1 text-muted-foreground">
                     {patientId ? "Filtrado por paciente." : "Vista general del historial clinico."}
                   </p>
                 </div>
-                <Button asChild className="rounded-full px-5">
+                <Button asChild className="rounded-lg px-5">
                   <Link href={patientId ? `/expedientes/nuevo?pacienteId=${patientId}` : "/expedientes/nuevo"}>
                     <Plus className="size-4" />
                     Nuevo expediente
@@ -58,7 +58,7 @@ export default async function MedicalRecordsPage({ searchParams }: MedicalRecord
           <section className="grid gap-4">
             {records.map((record) => (
               <article
-                className="rounded-[1.7rem] border border-border/70 bg-white/88 p-5 shadow-[0_12px_35px_rgba(17,33,31,0.05)]"
+                className="list-card"
                 key={record.id}
               >
                 <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -84,7 +84,7 @@ export default async function MedicalRecordsPage({ searchParams }: MedicalRecord
                     </div>
                   </div>
 
-                  <Button asChild className="rounded-full px-5">
+                  <Button asChild className="rounded-lg px-5">
                     <Link href={`/expedientes/${record.id}`}>
                       Ver detalle
                       <ArrowRight className="size-4" />

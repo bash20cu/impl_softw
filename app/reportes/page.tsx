@@ -52,7 +52,7 @@ export default async function ReportsPage({ searchParams }: ReportsPageProps) {
 
       <section className="px-4 pb-8 pt-8 md:px-8 lg:px-10">
         <div className="mx-auto w-full max-w-[1320px] space-y-6">
-          <section className="mx-auto max-w-6xl rounded-[2rem] border border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(241,246,243,0.92))] p-6 shadow-[0_20px_60px_rgba(17,33,31,0.08)] md:p-8">
+          <section className="mx-auto max-w-6xl rounded-xl border border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(241,246,243,0.92))] p-6 shadow-[0_10px_24px_rgba(17,33,31,0.04)] md:p-8">
             <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-3xl space-y-4">
                 <Badge variant="secondary">Modulo de reportes</Badge>
@@ -62,8 +62,7 @@ export default async function ReportsPage({ searchParams }: ReportsPageProps) {
                   </h1>
                   <p className="max-w-2xl text-base leading-7 text-muted-foreground">
                     Esta pagina deja resuelta la experiencia de uso: seleccion del reporte, filtros,
-                    vista tabular y estructura de salida. El siguiente paso sera enlazar el backend
-                    interno con PostgreSQL sin redisenar la interfaz.
+                    vista tabular y estructura de salida conectadas al backend interno con PostgreSQL.
                   </p>
                 </div>
               </div>
@@ -74,10 +73,10 @@ export default async function ReportsPage({ searchParams }: ReportsPageProps) {
 
                   return (
                     <article
-                      className="rounded-[1.5rem] border border-border/70 bg-white/82 p-4"
+                      className="rounded-lg border border-border/70 bg-white/82 p-4"
                       key={card.title}
                     >
-                      <div className="flex size-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                      <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                         <Icon className="size-4" />
                       </div>
                       <h2 className="mt-4 text-sm font-semibold">{card.title}</h2>

@@ -102,14 +102,14 @@ export function ReportsWorkspace({
     <div className="w-full space-y-6">
       <section className="space-y-6">
         <div className="grid gap-6 xl:grid-cols-[minmax(22rem,0.82fr)_minmax(0,1.18fr)]">
-          <article className="rounded-[2rem] border border-border/70 bg-white/88 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.06)]">
+          <article className="panel-card">
             <div className="flex items-center justify-between gap-3">
               <div className="space-y-3">
                 <Badge variant="secondary">Filtros</Badge>
                 <div className="flex flex-wrap gap-2">
                   {reportDefinitions.map((item) => (
                     <Button
-                      className="rounded-full"
+                    className="rounded-lg"
                       key={item.id}
                       onClick={() => handleReportChange(item.id)}
                       type="button"
@@ -166,7 +166,7 @@ export function ReportsWorkspace({
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <Button
-                className="rounded-full px-5"
+                className="rounded-lg px-5"
                 disabled={isPending}
                 onClick={handleGenerateReport}
                 type="button"
@@ -174,7 +174,7 @@ export function ReportsWorkspace({
                 {isPending ? "Consultando..." : "Generar reporte"}
               </Button>
               <Button
-                className="rounded-full px-5"
+                className="rounded-lg px-5"
                 disabled={isPending}
                 onClick={handleResetFilters}
                 type="button"
@@ -184,7 +184,7 @@ export function ReportsWorkspace({
               </Button>
             </div>
 
-            <div className="mt-6 rounded-[1.4rem] border border-border/70 bg-muted/50 p-4">
+            <div className="mt-6 rounded-lg border border-border/70 bg-muted/50 p-4">
               <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
                 Payload actual
               </p>
@@ -194,7 +194,7 @@ export function ReportsWorkspace({
             </div>
           </article>
 
-          <article className="rounded-[2rem] border border-border/70 bg-white/88 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.06)]">
+          <article className="panel-card">
             <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
               <div>
                 <Badge variant="outline">Resultados</Badge>
@@ -206,13 +206,13 @@ export function ReportsWorkspace({
                 </p>
               </div>
 
-              <div className="rounded-[1.3rem] border border-primary/20 bg-primary/[0.05] px-4 py-3 text-sm">
+            <div className="info-pill text-sm">
                 <p className="font-medium text-primary">{rows.length} fila(s) visibles</p>
                 <p className="mt-1 text-muted-foreground">Consulta viva contra la base de datos.</p>
               </div>
             </div>
 
-            <div className="mt-6 overflow-hidden rounded-[1.6rem] border border-border/70">
+            <div className="mt-6 overflow-hidden rounded-lg border border-border/70">
               <div className="overflow-x-auto">
                 <table className="min-w-full border-separate border-spacing-0">
                   <thead>

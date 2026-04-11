@@ -32,14 +32,14 @@ export default async function EditMedicalRecordPage({
 
       <section className="px-4 pb-8 pt-8 md:px-8 lg:px-10">
         <div className="mx-auto max-w-4xl space-y-6">
-          <Button asChild className="rounded-full px-5" variant="outline">
+          <Button asChild className="rounded-lg px-5" variant="outline">
             <Link href={`/expedientes/${record.id}`}>
               <ArrowLeft className="size-4" />
               Volver al detalle
             </Link>
           </Button>
 
-          <section className="rounded-[2rem] border border-border/70 bg-white/88 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.08)] md:p-8">
+          <section className="hero-panel">
             <MedicalRecordForm
               appointments={record.citaId ? [{ id: record.citaId, label: `${record.numeroExpediente} · ${record.paciente}`, helper: `${record.fechaCita} · ${record.doctorCodigo} ${record.doctor}` }, ...options.appointments] : options.appointments}
               defaultValues={{

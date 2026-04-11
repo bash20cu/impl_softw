@@ -19,7 +19,7 @@ export default async function DoctorsPage() {
 
       <section className="px-4 pb-8 pt-8 md:px-8 lg:px-10">
         <div className="mx-auto max-w-6xl space-y-6">
-          <section className="rounded-[2rem] border border-border/70 bg-white/85 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.08)] md:p-8">
+          <section className="hero-panel">
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
               <div className="space-y-3">
                 <Badge variant="secondary">Modulo de doctores</Badge>
@@ -33,11 +33,11 @@ export default async function DoctorsPage() {
               </div>
 
               <div className="flex flex-col gap-3 md:items-end">
-                <div className="rounded-[1.4rem] border border-primary/20 bg-primary/[0.05] px-4 py-3 text-sm">
+                <div className="info-pill text-sm">
                   <p className="font-medium text-primary">{doctors.length} doctor(es) activos</p>
                   <p className="mt-1 text-muted-foreground">Lectura viva desde PostgreSQL.</p>
                 </div>
-                <Button asChild className="rounded-full px-5">
+                <Button asChild className="rounded-lg px-5">
                   <Link href="/doctores/nuevo">
                     <Plus className="size-4" />
                     Nuevo doctor
@@ -50,7 +50,7 @@ export default async function DoctorsPage() {
           <section className="grid gap-4">
             {doctors.map((doctor) => (
               <article
-                className="rounded-[1.7rem] border border-border/70 bg-white/88 p-5 shadow-[0_12px_35px_rgba(17,33,31,0.05)]"
+                className="list-card"
                 key={doctor.id}
               >
                 <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -78,7 +78,7 @@ export default async function DoctorsPage() {
                     </div>
                   </div>
 
-                  <Button asChild className="rounded-full px-5">
+                  <Button asChild className="rounded-lg px-5">
                     <Link href={`/doctores/${doctor.id}`}>
                       Ver detalle
                       <ArrowRight className="size-4" />

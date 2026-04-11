@@ -46,7 +46,7 @@ export default function Home() {
       <section className="px-4 pb-8 pt-8 md:px-8 lg:px-10">
         <div className="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
           <div className="space-y-6 py-10 md:py-16">
-            <Badge className="rounded-full px-3 py-1 text-sm" variant="secondary">
+            <Badge className="rounded-md px-3 py-1 text-sm" variant="secondary">
               ClinicaPlus · Proyecto academico con Next.js, PostgreSQL y Vercel
             </Badge>
             <div className="space-y-5">
@@ -60,39 +60,39 @@ export default function Home() {
               </p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Button asChild className="h-11 rounded-full px-6 text-sm">
+              <Button asChild className="h-11 rounded-lg px-6 text-sm">
                 <Link href="/login">
                   Entrar al sistema
                   <ArrowRight className="size-4" />
                 </Link>
               </Button>
-              <Button asChild className="h-11 rounded-full px-6 text-sm" variant="outline">
+              <Button asChild className="h-11 rounded-lg px-6 text-sm" variant="outline">
                 <Link href="/dashboard">Ver dashboard</Link>
               </Button>
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-[2rem] border border-white/60 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(238,244,241,0.92))] p-5 shadow-[0_24px_70px_rgba(17,33,31,0.12)]">
+          <div className="overflow-hidden rounded-xl border border-white/60 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(238,244,241,0.92))] p-5 shadow-[0_10px_24px_rgba(17,33,31,0.06)]">
             <div className="grid gap-4">
-              <div className="flex items-center justify-between rounded-[1.5rem] border border-border/70 bg-white/90 p-4">
+              <div className="flex items-center justify-between rounded-lg border border-border/70 bg-white/90 p-4">
                 <div>
                   <p className="text-sm text-muted-foreground">Turnos del dia</p>
                   <p className="mt-1 text-3xl font-semibold">18</p>
                 </div>
-                <div className="rounded-full bg-primary/10 p-3 text-primary">
+                <div className="rounded-lg bg-primary/10 p-3 text-primary">
                   <CalendarClock className="size-5" />
                 </div>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <article className="rounded-[1.5rem] border border-border/70 bg-white/80 p-4">
+                <article className="rounded-lg border border-border/70 bg-white/80 p-4">
                   <p className="text-sm text-muted-foreground">Doctores activos</p>
                   <p className="mt-2 text-2xl font-semibold">9</p>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">
                     Especialidades distribuidas para consulta general y seguimiento.
                   </p>
                 </article>
-                <article className="rounded-[1.5rem] border border-border/70 bg-[linear-gradient(180deg,#134e4a,#0f766e)] p-4 text-white">
+                <article className="rounded-lg border border-border/70 bg-[linear-gradient(180deg,#134e4a,#0f766e)] p-4 text-white">
                   <p className="text-sm text-white/72">Seguridad</p>
                   <p className="mt-2 text-2xl font-semibold">3 roles</p>
                   <p className="mt-3 text-sm leading-6 text-white/78">
@@ -101,7 +101,7 @@ export default function Home() {
                 </article>
               </div>
 
-              <article className="rounded-[1.5rem] border border-border/70 bg-white/85 p-4">
+              <article className="rounded-lg border border-border/70 bg-white/85 p-4">
                 <div className="flex items-center justify-between gap-3">
                   <div>
                     <p className="text-sm text-muted-foreground">Base de datos</p>
@@ -125,7 +125,7 @@ export default function Home() {
       </section>
 
       <section className="px-4 py-6 md:px-8 lg:px-10">
-        <div className="mx-auto max-w-6xl rounded-[2rem] border border-border/70 bg-white/70 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.06)] md:p-8">
+        <div className="mx-auto max-w-6xl rounded-xl border border-border/70 bg-white/70 p-6 shadow-[0_10px_24px_rgba(17,33,31,0.04)] md:p-8">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div className="space-y-3">
               <Badge variant="outline">Base funcional del sistema</Badge>
@@ -149,10 +149,10 @@ export default function Home() {
 
               return (
                 <article
-                  className="rounded-[1.5rem] border border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(244,246,242,0.92))] p-5"
+                  className="rounded-lg border border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(244,246,242,0.92))] p-5"
                   key={module.title}
                 >
-                  <div className="flex size-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                  <div className="flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
                     <Icon className="size-5" />
                   </div>
                   <h3 className="mt-5 text-lg font-semibold">{module.title}</h3>
@@ -167,14 +167,14 @@ export default function Home() {
       </section>
 
       <section className="px-4 pt-4 md:px-8 lg:px-10">
-        <div className="mx-auto flex max-w-6xl flex-col gap-4 rounded-[2rem] border border-dashed border-primary/25 bg-primary/[0.045] p-6 md:flex-row md:items-center md:justify-between">
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 rounded-xl border border-dashed border-primary/25 bg-primary/[0.045] p-6 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-sm font-medium text-primary">Siguiente paso del equipo</p>
+            <p className="text-sm font-medium text-primary">Estado del equipo</p>
             <p className="mt-2 text-base text-muted-foreground">
-              Conectar login real, crear modulo de pacientes y poblar la base con datos de ejemplo.
+              Login real, modulo de pacientes y datos de ejemplo ya estan listos para demostracion.
             </p>
           </div>
-          <Button asChild className="rounded-full px-6">
+          <Button asChild className="rounded-lg px-6">
             <Link href="/dashboard">
               Continuar con el desarrollo
               <Stethoscope className="size-4" />

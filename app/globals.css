@@ -5,23 +5,23 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --surface: #fffdf8;
-  --surface-strong: #eef4f1;
-  --line: #d7ddd8;
+  --surface: #ffffff;
+  --surface-strong: #eff3f6;
+  --line: #d8e0e7;
   --primary: #0f766e;
   --primary-strong: #134e4a;
-  --accent: #f59e0b;
-  --muted: #f4f6f2;
-  --background: #f6f7f4;
+  --accent: #d97706;
+  --muted: #eef2f6;
+  --background: #f3f5f7;
   --foreground: #11211f;
-  --card: #fffdf8;
+  --card: #ffffff;
   --card-foreground: #11211f;
-  --popover: #fffdf8;
+  --popover: #ffffff;
   --popover-foreground: #11211f;
   --primary-foreground: #f8fffd;
-  --secondary: #edf2ef;
+  --secondary: #edf2f7;
   --secondary-foreground: #1d302d;
-  --muted-foreground: #61706c;
+  --muted-foreground: #5f6b79;
   --accent-foreground: #5d3b06;
   --destructive: oklch(0.577 0.245 27.325);
   --border: #d7ddd8;
@@ -32,7 +32,7 @@
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
+  --radius: 0.5rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -82,13 +82,13 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
+  --radius-sm: calc(var(--radius) * 0.65);
+  --radius-md: var(--radius);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-xl: calc(var(--radius) * 1.35);
+  --radius-2xl: calc(var(--radius) * 1.65);
+  --radius-3xl: calc(var(--radius) * 1.9);
+  --radius-4xl: calc(var(--radius) * 2.15);
 }
 
 * {
@@ -97,9 +97,9 @@
 
 html {
   background:
-    radial-gradient(circle at top left, rgba(15, 118, 110, 0.16), transparent 26%),
-    radial-gradient(circle at right 20%, rgba(245, 158, 11, 0.1), transparent 18%),
-    linear-gradient(180deg, #fbfaf6 0%, #f6f7f4 100%);
+    radial-gradient(circle at top left, rgba(15, 118, 110, 0.12), transparent 24%),
+    radial-gradient(circle at right 18%, rgba(217, 119, 6, 0.08), transparent 16%),
+    linear-gradient(180deg, #f8fafb 0%, #f3f5f7 100%);
 }
 
 body {
@@ -120,6 +120,83 @@ textarea {
 
 .app-shell {
   min-height: 100vh;
+}
+
+.page-frame {
+  padding-inline: 1rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.page-stack {
+  margin-inline: auto;
+  display: grid;
+  max-width: 1120px;
+  gap: 1.25rem;
+}
+
+.hero-panel {
+  border: 1px solid color-mix(in srgb, var(--border) 78%, white 22%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(250, 251, 252, 0.88));
+  border-radius: 0.9rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.045);
+}
+
+.panel-card {
+  border: 1px solid color-mix(in srgb, var(--border) 82%, white 18%);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.035);
+}
+
+.list-card {
+  border: 1px solid color-mix(in srgb, var(--border) 84%, white 16%);
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 0.7rem;
+  padding: 1.1rem 1.2rem;
+  box-shadow: 0 5px 16px rgba(15, 23, 42, 0.03);
+}
+
+.metric-card {
+  border: 1px solid color-mix(in srgb, var(--border) 84%, white 16%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 249, 251, 0.92));
+  border-radius: 0.7rem;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 5px 16px rgba(15, 23, 42, 0.03);
+}
+
+.page-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.page-title {
+  font-size: clamp(2rem, 4vw, 3.35rem);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  color: #0f172a;
+}
+
+.page-subtitle {
+  max-width: 46rem;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--muted-foreground);
+}
+
+.info-pill {
+  border: 1px solid color-mix(in srgb, var(--primary) 16%, white 84%);
+  background: color-mix(in srgb, var(--primary) 6%, white 94%);
+  border-radius: 0.65rem;
+  padding: 0.85rem 1rem;
 }
 
 .section-title {
@@ -171,5 +248,15 @@ textarea {
   }
   html {
     @apply font-sans;
+  }
+}
+
+@media (min-width: 768px) {
+  .page-frame {
+    padding-inline: 2rem;
+  }
+
+  .hero-panel {
+    padding: 1.75rem;
   }
 }

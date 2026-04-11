@@ -24,7 +24,7 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <Button className="rounded-full px-6" disabled={pending} type="submit">
+    <Button className="rounded-lg px-6" disabled={pending} type="submit">
       <CreditCard className="size-4" />
       {pending ? "Procesando pago simulado..." : "Procesar pago simulado"}
     </Button>

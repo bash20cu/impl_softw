@@ -35,7 +35,7 @@ export default async function AdminUserDetailPage({ params }: AdminUserDetailPag
       <section className="px-4 pb-8 pt-8 md:px-8 lg:px-10">
         <div className="mx-auto max-w-5xl space-y-6">
           <div className="flex flex-wrap gap-3">
-            <Button asChild className="rounded-full px-5" variant="outline">
+            <Button asChild className="rounded-lg px-5" variant="outline">
               <Link href="/admin/usuarios">
                 <ArrowLeft className="size-4" />
                 Volver a usuarios
@@ -43,7 +43,7 @@ export default async function AdminUserDetailPage({ params }: AdminUserDetailPag
             </Button>
 
             <form action={toggleAdminUserAccessAction.bind(null, user.id, session.userId, !user.activo)}>
-              <Button className="rounded-full px-5" type="submit" variant="outline">
+              <Button className="rounded-lg px-5" type="submit" variant="outline">
                 {user.activo ? (
                   <>
                     <ShieldOff className="size-4" />
@@ -59,7 +59,7 @@ export default async function AdminUserDetailPage({ params }: AdminUserDetailPag
             </form>
           </div>
 
-          <section className="rounded-[2rem] border border-border/70 bg-white/88 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.08)] md:p-8">
+          <section className="hero-panel">
             <div className="space-y-3">
               <Badge variant="secondary">{user.rol}</Badge>
               <h1 className="text-4xl font-semibold tracking-tight">{user.nombreCompleto}</h1>
@@ -70,7 +70,7 @@ export default async function AdminUserDetailPage({ params }: AdminUserDetailPag
           </section>
 
           <section className="grid gap-6 lg:grid-cols-2">
-            <section className="rounded-[2rem] border border-border/70 bg-white/88 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.08)]">
+            <section className="panel-card">
               <UserProfileForm
                 currentUserId={session.userId}
                 defaultValues={{
@@ -86,7 +86,7 @@ export default async function AdminUserDetailPage({ params }: AdminUserDetailPag
               />
             </section>
 
-            <section className="rounded-[2rem] border border-border/70 bg-white/88 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.08)]">
+            <section className="panel-card">
               <UserPasswordForm userId={user.id} />
             </section>
           </section>

@@ -32,32 +32,32 @@ export default async function PatientDetailPage({ params }: PatientDetailPagePro
         <div className="mx-auto max-w-6xl space-y-6">
           <div className="flex items-center justify-between">
             <div className="flex flex-wrap gap-3">
-              <Button asChild className="rounded-full px-5" variant="outline">
+              <Button asChild className="rounded-lg px-5" variant="outline">
                 <Link href="/pacientes">
                   <ArrowLeft className="size-4" />
                   Volver a pacientes
                 </Link>
               </Button>
-              <Button asChild className="rounded-full px-5" variant="outline">
+              <Button asChild className="rounded-lg px-5" variant="outline">
                 <Link href={`/expedientes?pacienteId=${patient.id}`}>
                   <FileText className="size-4" />
                   Ver expedientes
                 </Link>
               </Button>
-              <Button asChild className="rounded-full px-5" variant="outline">
+              <Button asChild className="rounded-lg px-5" variant="outline">
                 <Link href={`/facturas?pacienteId=${patient.id}`}>
                   <CreditCard className="size-4" />
                   Ver facturas
                 </Link>
               </Button>
-              <Button asChild className="rounded-full px-5" variant="outline">
+              <Button asChild className="rounded-lg px-5" variant="outline">
                 <Link href={`/pacientes/${patient.id}/editar`}>
                   <Pencil className="size-4" />
                   Editar
                 </Link>
               </Button>
               <form action={deactivatePatientAction.bind(null, patient.id)}>
-                <Button className="rounded-full px-5" type="submit" variant="outline">
+                <Button className="rounded-lg px-5" type="submit" variant="outline">
                   <Trash2 className="size-4" />
                   Desactivar
                 </Button>
@@ -65,7 +65,7 @@ export default async function PatientDetailPage({ params }: PatientDetailPagePro
             </div>
           </div>
 
-          <section className="rounded-[2rem] border border-border/70 bg-white/88 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.08)] md:p-8">
+          <section className="hero-panel">
             <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
               <div className="space-y-3">
                 <Badge variant="secondary">{patient.numeroExpediente}</Badge>
@@ -88,15 +88,15 @@ export default async function PatientDetailPage({ params }: PatientDetailPagePro
               </div>
 
               <div className="grid gap-3 sm:grid-cols-3">
-                <article className="rounded-[1.3rem] border border-border/70 bg-muted/40 p-4 text-center">
+                <article className="rounded-lg border border-border/70 bg-muted/40 p-4 text-center">
                   <p className="text-sm text-muted-foreground">Citas</p>
                   <p className="mt-2 text-3xl font-semibold">{patient.citasRegistradas}</p>
                 </article>
-                <article className="rounded-[1.3rem] border border-border/70 bg-muted/40 p-4 text-center">
+                <article className="rounded-lg border border-border/70 bg-muted/40 p-4 text-center">
                   <p className="text-sm text-muted-foreground">Expedientes</p>
                   <p className="mt-2 text-3xl font-semibold">{patient.expedientesRegistrados}</p>
                 </article>
-                <article className="rounded-[1.3rem] border border-border/70 bg-muted/40 p-4 text-center">
+                <article className="rounded-lg border border-border/70 bg-muted/40 p-4 text-center">
                   <p className="text-sm text-muted-foreground">Facturas</p>
                   <p className="mt-2 text-3xl font-semibold">{patient.facturasRegistradas}</p>
                 </article>
@@ -105,9 +105,9 @@ export default async function PatientDetailPage({ params }: PatientDetailPagePro
           </section>
 
           <section className="grid gap-4 md:grid-cols-2">
-            <article className="rounded-[1.6rem] border border-border/70 bg-white/82 p-5 shadow-[0_12px_35px_rgba(17,33,31,0.05)]">
+            <article className="panel-card">
               <div className="flex items-center gap-3">
-                <div className="flex size-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                <div className="flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
                   <FileText className="size-5" />
                 </div>
                 <div>
@@ -119,9 +119,9 @@ export default async function PatientDetailPage({ params }: PatientDetailPagePro
               </div>
             </article>
 
-            <article className="rounded-[1.6rem] border border-border/70 bg-white/82 p-5 shadow-[0_12px_35px_rgba(17,33,31,0.05)]">
+            <article className="panel-card">
               <div className="flex items-center gap-3">
-                <div className="flex size-11 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                <div className="flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
                   <CreditCard className="size-5" />
                 </div>
                 <div>

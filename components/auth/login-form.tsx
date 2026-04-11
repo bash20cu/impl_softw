@@ -84,7 +84,7 @@ export function LoginForm() {
         <SubmitButton />
       </form>
 
-      <div className="rounded-[1.5rem] border border-border/70 bg-muted/50 p-4">
+      <div className="rounded-lg border border-border/70 bg-muted/50 p-4">
         <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
           Credenciales demo disponibles hoy
         </p>

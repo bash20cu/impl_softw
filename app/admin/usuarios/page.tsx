@@ -17,9 +17,9 @@ export default async function AdminUsersPage() {
     <main className="app-shell pb-10">
       <SiteHeader current="usuarios-admin" />
 
-      <section className="px-4 pb-8 pt-8 md:px-8 lg:px-10">
-        <div className="mx-auto max-w-6xl space-y-6">
-          <section className="rounded-[2rem] border border-border/70 bg-white/85 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.08)] md:p-8">
+      <section className="page-frame">
+        <div className="page-stack">
+          <section className="hero-panel">
             <div className="space-y-3">
               <Badge variant="secondary">Mantenimiento de acceso</Badge>
               <h1 className="text-balance text-4xl font-semibold tracking-tight md:text-5xl">
@@ -34,7 +34,7 @@ export default async function AdminUsersPage() {
           <section className="grid gap-4">
             {users.map((user) => (
               <article
-                className="rounded-[1.7rem] border border-border/70 bg-white/88 p-5 shadow-[0_12px_35px_rgba(17,33,31,0.05)]"
+                className="list-card"
                 key={user.id}
               >
                 <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -59,7 +59,7 @@ export default async function AdminUsersPage() {
                     </div>
                   </div>
 
-                  <Button asChild className="rounded-full px-5">
+                  <Button asChild className="rounded-lg px-5">
                     <Link href={`/admin/usuarios/${user.id}`}>
                       Gestionar
                       <ArrowRight className="size-4" />

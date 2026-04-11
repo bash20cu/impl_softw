@@ -59,40 +59,37 @@ export default async function DashboardPage() {
     <main className="app-shell pb-10">
       <SiteHeader current="dashboard" />
 
-      <section className="px-4 pb-8 pt-8 md:px-8 lg:px-10">
-        <div className="mx-auto max-w-6xl space-y-6">
-          <section className="grid gap-6 rounded-[2rem] border border-border/70 bg-white/85 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.08)] lg:grid-cols-[1.1fr_0.9fr] md:p-8">
+      <section className="page-frame">
+        <div className="page-stack">
+          <section className="hero-panel grid gap-6 lg:grid-cols-[1.08fr_0.92fr]">
             <div className="space-y-5">
-              <Badge variant="secondary">Dashboard SSR del monolito</Badge>
+              <span className="page-eyebrow">Centro operativo</span>
               <div className="space-y-4">
-                <h1 className="text-balance text-4xl font-semibold tracking-tight md:text-5xl">
-                  La superficie operativa ya tiene mejor jerarquia y mejor lectura.
-                </h1>
-                <p className="max-w-2xl text-base leading-7 text-muted-foreground">
-                  En un sistema interno conviene priorizar orientacion, estado y
-                  accion. Por eso esta pantalla baja el tono de marketing y sube la
-                  claridad del producto.
+                <h1 className="page-title text-balance">Resumen del sistema y accesos clave</h1>
+                <p className="page-subtitle">
+                  Este tablero prioriza estado, accesos directos y visibilidad sobre las
+                  areas activas de la clinica para empezar a trabajar sin friccion.
                 </p>
                 <p className="text-sm font-medium text-primary">
                   Sesion activa: {session.name} ({session.role})
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <Button asChild className="rounded-full px-5">
+                <Button asChild className="rounded-lg px-5">
                   <Link href="/citas/nuevo">Crear cita</Link>
                 </Button>
-                <Button asChild className="rounded-full px-5" variant="outline">
+                <Button asChild className="rounded-lg px-5" variant="outline">
                   <Link href="/pacientes">Ver pacientes</Link>
                 </Button>
-                <Button asChild className="rounded-full px-5" variant="outline">
+                <Button asChild className="rounded-lg px-5" variant="outline">
                   <Link href="/doctores">Ver doctores</Link>
                 </Button>
               </div>
             </div>
 
-            <div className="rounded-[1.75rem] border border-primary/15 bg-[linear-gradient(180deg,rgba(15,118,110,0.08),rgba(255,255,255,0.8))] p-5">
+            <div className="panel-card border-primary/15 bg-[linear-gradient(180deg,rgba(15,118,110,0.06),rgba(255,255,255,0.94))]">
               <div className="flex items-start gap-3">
-                <div className="flex size-11 items-center justify-center rounded-2xl bg-primary/12 text-primary">
+                <div className="flex size-11 items-center justify-center rounded-lg bg-primary/12 text-primary">
                   <Activity className="size-5" />
                 </div>
                 <div>
@@ -106,14 +103,14 @@ export default async function DashboardPage() {
               <Separator className="my-5" />
 
               <div className="space-y-4">
-                <div className="flex items-center justify-between rounded-[1.2rem] border border-border/70 bg-white/85 px-4 py-3">
+                <div className="metric-card flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Arquitectura</p>
                     <p className="font-semibold">Monolito SSR simple</p>
                   </div>
                   <HeartPulse className="size-5 text-primary" />
                 </div>
-                <div className="flex items-center justify-between rounded-[1.2rem] border border-border/70 bg-white/85 px-4 py-3">
+                <div className="metric-card flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Reportes previstos</p>
                     <p className="font-semibold">2 reportes relacionales</p>
@@ -129,13 +126,10 @@ export default async function DashboardPage() {
               const Icon = stat.icon;
 
               return (
-                <article
-                  className="rounded-[1.6rem] border border-border/70 bg-white/82 p-5 shadow-[0_12px_35px_rgba(17,33,31,0.05)]"
-                  key={stat.label}
-                >
+                <article className="metric-card" key={stat.label}>
                   <div className="flex items-center justify-between">
                     <p className="text-sm text-muted-foreground">{stat.label}</p>
-                    <div className="flex size-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                    <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                       <Icon className="size-4" />
                     </div>
                   </div>
@@ -145,25 +139,22 @@ export default async function DashboardPage() {
             })}
           </section>
 
-          <section className="rounded-[2rem] border border-border/70 bg-white/82 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.06)] md:p-8">
+          <section className="hero-panel">
             <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <div>
-                <Badge variant="outline">Backoffice de ClinicaPlus</Badge>
-                <h2 className="mt-3 text-2xl font-semibold tracking-tight">
-                  Areas listas para seguir desarrollando
+                <span className="page-eyebrow">Mapa del producto</span>
+                <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900">
+                  Modulos listos para operacion
                 </h2>
               </div>
               <p className="max-w-xl text-sm leading-6 text-muted-foreground">
-                La siguiente mejora funcional es conectar cada area con consultas SQL reales y datos de ejemplo.
+                El login, pacientes y datos demo ya estan integrados; esta vista resume los modulos que se pueden demostrar hoy.
               </p>
             </div>
 
             <div className="mt-8 grid gap-4 md:grid-cols-2">
               {workAreas.map((area) => (
-                <article
-                  className="rounded-[1.4rem] border border-border/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(244,246,242,0.85))] p-5"
-                  key={area.title}
-                >
+                <article className="panel-card bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(244,247,250,0.9))]" key={area.title}>
                   <h3 className="text-lg font-semibold">{area.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">
                     {area.description}

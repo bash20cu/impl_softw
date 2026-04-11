@@ -31,7 +31,7 @@ export default async function InvoiceDetailPage({ params }: InvoiceDetailPagePro
       <section className="px-4 pb-8 pt-8 md:px-8 lg:px-10">
         <div className="mx-auto max-w-6xl space-y-6">
           <div className="flex flex-wrap gap-3">
-            <Button asChild className="rounded-full px-5" variant="outline">
+            <Button asChild className="rounded-lg px-5" variant="outline">
               <Link href={`/facturas?pacienteId=${invoice.pacienteId}`}>
                 <ArrowLeft className="size-4" />
                 Volver a facturas
@@ -39,7 +39,7 @@ export default async function InvoiceDetailPage({ params }: InvoiceDetailPagePro
             </Button>
           </div>
 
-          <section className="rounded-[2rem] border border-border/70 bg-white/88 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.08)] md:p-8">
+          <section className="hero-panel">
             <div className="space-y-3">
               <Badge variant="secondary">{invoice.numeroFactura}</Badge>
               <h1 className="text-4xl font-semibold tracking-tight">{invoice.paciente}</h1>
@@ -62,13 +62,13 @@ export default async function InvoiceDetailPage({ params }: InvoiceDetailPagePro
           </section>
 
           <section className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
-            <article className="rounded-[1.6rem] border border-border/70 bg-white/82 p-5 shadow-[0_12px_35px_rgba(17,33,31,0.05)]">
+            <article className="panel-card">
               <h2 className="text-lg font-semibold">Pagos registrados</h2>
               <div className="mt-4 space-y-3">
                 {invoice.pagos.length > 0 ? (
                   invoice.pagos.map((payment) => (
                     <div
-                      className="rounded-[1.2rem] border border-border/70 bg-muted/35 p-4"
+                    className="rounded-lg border border-border/70 bg-muted/35 p-4"
                       key={payment.id}
                     >
                       <p className="text-sm font-medium">
@@ -90,7 +90,7 @@ export default async function InvoiceDetailPage({ params }: InvoiceDetailPagePro
               </div>
             </article>
 
-            <article className="rounded-[1.6rem] border border-border/70 bg-white/82 p-5 shadow-[0_12px_35px_rgba(17,33,31,0.05)]">
+            <article className="panel-card">
               <h2 className="text-lg font-semibold">Procesar pago</h2>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
                 Usa este formulario solo para la demo del curso. No existe integracion con una pasarela bancaria o de tarjetas.

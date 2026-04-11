@@ -18,12 +18,12 @@ export default async function PrescriptionsPage() {
       <SiteHeader />
       <section className="px-4 pb-8 pt-8 md:px-8 lg:px-10">
         <div className="mx-auto max-w-6xl space-y-6">
-          <div className="flex items-end justify-between rounded-[2rem] border border-border/70 bg-white/85 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.08)]">
+          <div className="hero-panel flex items-end justify-between">
             <div className="space-y-3">
               <Badge variant="secondary">Tratamientos</Badge>
               <h1 className="text-4xl font-semibold tracking-tight">Recetas</h1>
             </div>
-            <Button asChild className="rounded-full px-5">
+            <Button asChild className="rounded-lg px-5">
               <Link href="/recetas/nuevo">
                 <Plus className="size-4" />
                 Nueva receta
@@ -33,7 +33,7 @@ export default async function PrescriptionsPage() {
 
           <div className="grid gap-4">
             {prescriptions.map((prescription) => (
-              <article className="rounded-[1.5rem] border border-border/70 bg-white/88 p-5" key={prescription.id}>
+              <article className="list-card" key={prescription.id}>
                 <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                   <div>
                     <div className="flex flex-wrap items-center gap-3">
@@ -47,7 +47,7 @@ export default async function PrescriptionsPage() {
                       <span>Duracion: {prescription.duracion}</span>
                     </div>
                   </div>
-                  <Button asChild className="rounded-full px-5">
+                  <Button asChild className="rounded-lg px-5">
                     <Link href={`/recetas/${prescription.id}`}>
                       Ver detalle
                       <ArrowRight className="size-4" />

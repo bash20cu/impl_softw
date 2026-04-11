@@ -14,13 +14,13 @@ export default async function NewMedicinePage() {
       <SiteHeader />
       <section className="px-4 pb-8 pt-8 md:px-8 lg:px-10">
         <div className="mx-auto max-w-4xl space-y-6">
-          <Button asChild className="rounded-full px-5" variant="outline">
+          <Button asChild className="rounded-lg px-5" variant="outline">
             <Link href="/medicamentos">
               <ArrowLeft className="size-4" />
               Volver a medicamentos
             </Link>
           </Button>
-          <section className="rounded-[2rem] border border-border/70 bg-white/88 p-6">
+          <section className="panel-card">
             <MedicineForm mode="create" />
           </section>
         </div>

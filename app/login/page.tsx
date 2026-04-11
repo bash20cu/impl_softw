@@ -37,8 +37,8 @@ export default async function LoginPage() {
 
       <section className="px-4 pb-8 pt-8 md:px-8 lg:px-10">
         <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-          <section className="overflow-hidden rounded-[2rem] border border-white/60 bg-[linear-gradient(180deg,#173a37_0%,#0f766e_100%)] p-6 text-white shadow-[0_24px_70px_rgba(17,33,31,0.18)] md:p-8">
-            <Badge className="rounded-full border-white/15 bg-white/10 px-3 py-1 text-white" variant="outline">
+          <section className="overflow-hidden rounded-xl border border-white/60 bg-[linear-gradient(180deg,#173a37_0%,#0f766e_100%)] p-6 text-white shadow-[0_14px_34px_rgba(17,33,31,0.12)] md:p-8">
+            <Badge className="rounded-md border-white/15 bg-white/10 px-3 py-1 text-white" variant="outline">
               Acceso central del sistema
             </Badge>
             <div className="mt-6 max-w-2xl space-y-4">
@@ -59,11 +59,11 @@ export default async function LoginPage() {
 
                 return (
                   <article
-                    className="rounded-[1.5rem] border border-white/12 bg-white/8 p-4 backdrop-blur-sm"
+                    className="rounded-lg border border-white/12 bg-white/8 p-4 backdrop-blur-sm"
                     key={card.title}
                   >
                     <div className="flex items-start gap-4">
-                      <div className="mt-1 flex size-11 items-center justify-center rounded-2xl bg-white/12">
+                      <div className="mt-1 flex size-11 items-center justify-center rounded-lg bg-white/12">
                         <Icon className="size-5" />
                       </div>
                       <div>
@@ -79,7 +79,7 @@ export default async function LoginPage() {
             </div>
           </section>
 
-          <section className="rounded-[2rem] border border-border/70 bg-white/90 p-6 shadow-[0_18px_50px_rgba(17,33,31,0.08)] md:p-8">
+          <section className="hero-panel bg-white/90">
             <LoginForm />
           </section>
         </div>
